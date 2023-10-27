@@ -1,123 +1,166 @@
-<p align=center><img src=https://d31uz8lwfmyn8g.cloudfront.net/Assets/logo-henry-white-lg.png><p>
+<p><img src="formas/henry.png", width="150"></p>
+<p><img src="formas/ETL.jpg", width="200"></p>
+<h5>El primer proyecto individual de la etapa de labs. Este proyecto, PI_ML_OPS, se situá en el rol de un MLOps Engineer y es el:</h5>
+<h1 align=center><span style="font-family:Arial Black">PROYECTO INDIVIDUAL Nº1</span></h1>
+<h6 align=center><i>de</i></h6>
+<h4 align=center><i>Cohorte</i>: DataPT04</h4>
+<h4 align=center><i>es presentado por</i>:</h4>
+<h2 align=center><i>Javier Báez Esqueda</i></h2>
 
-# <h1 align=center> **PROYECTO INDIVIDUAL Nº1** </h1>
+<h2>Objetivo</h2>
 
-# <h1 align=center>**`Machine Learning Operations (MLOps)`**</h1>
+> ***Crear una API con funcionalidades que serán acompañadas por un modelo de Machine Learning, partiendo de tres archivos `gz` que se les extraerá el respectivo archivo `json` para ser convertidos en DataFrames de ser necesario, esto con el fin de generar el dataset de trabajo; este último como elemento para gestar los insumos para las funciones de la API a diseñar.***
 
-<p align="center">
-<img src="https://user-images.githubusercontent.com/67664604/217914153-1eb00e25-ac08-4dfa-aaf8-53c09038f082.png"  height=300>
-</p>
+<h2>Introducción</h2>
 
-¡Bienvenidos al primer proyecto individual de la etapa de labs! En esta ocasión, deberán hacer un trabajo situándose en el rol de un ***MLOps Engineer***.  
+> En este proyecto, trabajamos con tres bases de datos de juegos. Partiendo de los archivos: *`steam_games.json.gz`*,*`user_reviews.json.gz`* y *`users_items.json.gz`* de los cuáles, se extraen los respectivos archivos *`json en folder zip`*: *`steam_games.json`*, *`user_reviews.json`* y *`users_items.json`* que al lograr extraerseles el archivo en cuestión, quedaron así: ***`australian_user_reviews.json`***, ***`australian_users_items.json`*** y ***`output_steam_games.json`***. 
+> Estos últimos archivos, una vez abiertos como archivos ***`json`***, se convirtieron a DataFrame. Excepto, este dataset: ***`output_steam_games.json`***, que lo pude abrir directamente con ***`pandas`***. Los DataFrames, se limpiaron y eventualmente se fusionaron para generar los datasets de trabajo.  
+> Esto, con la finalidad de ser el insumo para crear las funciones de la ***API*** a diseñar; que a la postre permitiran el diseño de nuestro ***módelo de recomendación***, y cuya representación recaera en la propia función de ***Machine Learning***.
 
-<hr>  
+## Desarrollo ETL
+### *`Extracción, transformación y carga de datos`*(Pag. 1)
+> Para este desarrollo, se crea el Notebook *ETL* y se trabaja con los `archivos json`: ***output_steam_games.json***, ***australian_user_reviews.json*** y ***australian_users_items.json***. Para abrir los archivos, importamos las librerias necesarias: ***pandas*** y ***ast*** para trabajar con los datasets `json` mencionados. 
+> Enseguida, lo que encontramos cuando abrimos cada archivo json.
 
-## **Descripción del problema (Contexto y rol a desarrollar)**
+### *`output_steam_games.json(1)`*:
+Abrimos el archivo directamente con `pandas`y eliminamos los valores `nulos`, generando 22530 registros y 13 columnas. 
+Extraemos la columna `year` de la columna `release_date`, para incrementar en una columna más. 
+Eliminamos las columnas para reducir a 6 columnas: `genres`, `app_name`, `title`, `release_date`, `id` y `year`. 
+La columna `genres` muestra sus registros en forma de `lista`, así que los apilamos en una nueva columna que le llamamos `genero`.
+Finalmente, eliminamos la columna `genres` que resulta en un dataset de `55607 registros y 6 columnas` que es salvado como: ***`df_games.csv`***
 
-## Contexto
+### *`australian_user_reviews.json(2)`*:
+Apoyado en la librería `ast` y partiendo de una lista vacia, abrimos el archivo mediante `open`, transformamos la lista en un DataFrame que nos arroja 3 columnas:`user_id`,`user_url`,`reviews`. Esta última columna `reviews`, esta anidada; pero, antes de desanidarla crearemos la función  `sentiment_analysis` usando la librería: `TextBlob`, la cuál deriva en 3 métricas: Negative = 0, Neutral = 1 y Positive = 2. Una vez creada la función `sentiment_analysis`, la aplicamos a la columna `reviews` apoyados en el método `apply` es construida la columna:`sentiment_analysis`. 
+Enseguida para desanidar la columna: `reviews`, iteramos las columnas de el archivo(2), usando el método:`iterrows`y
+mediante un diccionario alojamos todas las columnas en el `archivo`(2), incluyendo las columnas desanidadas en una lista que transformamos en DataFrame y eliminamos la columna `reviews`. 
+Ahora, convertimos la columna *`posted`* a formato fecha *`AAAA-MM-DD`*, 
+usando las librerías: `dateutil y parser` y eliminamos la palabra *`Posted`* de cada registro de la columna *`posted`* y aplicamos la función `parse_date`a la columna `posted` y creamos la columna `posted_date` y eliminamos la columna `posted`. Entonces, desde la columna `posted_date` extraemos la columna `year` generando `8 columnas y 59305 registros`. 
+Las columnas generadas son: `user_id`, `user_url`, `sentiment_analysis`, `item_id`, `recommend`, `review`, `posted_date`, `year`. Eliminamos los valores nulos de la columna `year` para terminar con `59280 registros y 8 columnas`.
+Resultante de este archivo es salvado como dataset: ***`df_reviews.csv`***
 
-Tienes tu modelo de recomendación dando unas buenas métricas :smirk:, y ahora, cómo lo llevas al mundo real? :eyes:
+### *`australian_users_items.json(3)`*:
+Abrimos el archivo mediante `open` y creando un bucle `for` vamos agregando linea por linea en una lista. Transformamos la lista en DataFrame, que nos arroja 5 columnas: `user_id`, `items_count`, `steam_id`, `user_url` e `items`. 
+Esta última columna `items`, esta anidada. La cuál, desanidamos con la iteracion de las columnas de el archivo(3), usando el método:`iterrows`y
+mediante un diccionario alojamos todas las columnas en el `archivo`(3), incluyendo las columnas desanidadas en una lista que transformamos en DataFrame que genera 7 columnas y 5153209 registros. 
+Las columnas generadas son: `user_id`, `item_count`, `steam_id`, `user_url`, `item_id`,`item_name`, `playtime_forever`. 
+Eliminamos la columna `steam_id` y los registros duplicados para tomar para el proyecto solamente los últimos `80000 registros y 6 columnas`.
+Resultante de este archivo es salvado como dataset: ***`df_items.csv`***. Sí tomamos todo el dataset con `5094092 registros y 6 columnas`, podemos salvarlo como:  ***`df_items_plus.csv`***
 
-El ciclo de vida de un proyecto de Machine Learning debe contemplar desde el tratamiento y recolección de los datos (Data Engineer stuff) hasta el entrenamiento y mantenimiento del modelo de ML según llegan nuevos datos.
+### *`Resumen`*:
+De la suma de los archivos: `df_games.csv`, `df_reviews.csv` y `df_items_plus.csv`, y antes de renombrar la columna `year` de los 2 primeros archivos
+como `release_year` y `posted_year` respectivamente, generamos el archivo de trabajo: `df_trabajo.csv` con 11 columnas y 42454 registros.
 
+## API
+### *`Insumos y funciones (Pag. 2)`*
+* Para este desarrollo, se crea el Notebook *API* y se trabaja con los `archivos.csv`: **`df_games.csv`**, **`df_reviews.csv`** y **`df_items.csv`**. Para abrir los archivos, importamos la libreria necesaria: ***pandas*** para trabajar con los datasets mencionados. Construyendo los insumos de cada función y salvando, el respectivo archivo como `csv`. 
 
-## **Propuesta de trabajo (requerimientos de aprobación)**
+`Función 1`
+> Archivo `games` y `items`: Permite construir respectivamente las columnas `df_games[['year','genero']]` y `df_items[['user_id','playtime_forever']]`.
+> Archivo resultante es: **`genero[['year','genero','playtime_forever']]`**.
+>> Salvado como:***`genero.csv`*** 
+> Creamos la función:**def PlayTimeGenre**(`genero`:str):  
 
-**`Transformaciones`**:  Para este MVP no necesitas perfección, ¡necesitas rapidez! ⏩ Vas a hacer estas, ***y solo estas***, transformaciones a los datos:
+`Función 2`        
+> Archivo `games`, `items` y  `reviews`: Permite construir respectivamente las columnas `df_games[['genero']]`,`df_items[['user_id','playtime_forever']]` y `df_reviews[['user_id','year']]`.
+> Archivo resultante es: **`gene[['year','genero','user_id','playtime_forever']]`**. 
+>> Salvado como:***`userforgenre.csv`***
+> Creamos la función:**def UserForGenre**(`genero`:str):
+        
+`Función 3`        
+> Archivo `games` y `reviews`: Permite construir respectivamente las columnas `df_games[['app_name']]` y `df_reviews[['sentiment_analysis','recommend','year']]`.
+> Archivo resultante es: **`rec[['year','app_name','sentiment_analysis']]`** con `recommend==True`. 
+>> Salvado como:***`UsersRecommend.csv`***
+> Creamos la función:**def UsersRecommend**(`anio`:int):
+        
+`Función 4`        
+> Archivo `games` y `reviews`: Permite construir respectivamente las columnas `df_games[['app_name']]` y `df_reviews[['sentiment_analysis','recommend','year']]`.
+> Archivo resultante es: **`rec[['year','app_name','sentiment_analysis']]`** con `recommend==False`. 
+>> Salvado como:***`UsersNotRecommend.csv`***
+> Creamos la función:**def UsersNotRecommend**(`anio`:int):
+        
+`Función 5`        
+> Archivo `reviews`: Permite construir las columnas `df_reviews[['year','review','sentiment_analysis']]`.
+> Archivo resultante es: **`sent[['year','review','sentiment_analysis']]`**. 
+>> Salvado como:***`sentimientos.csv`***
+> Creamos la función:**def sentiment_analysis**(`anio`:int):
+        
+`Función 6`        
+> Archivo `games` y `reviews`: Permite construir correspondientemente las columnas `df_games[['title']]` y `df_reviews[['review']]`.
+> Archivo resultante es: **`rec_juego[['title','review']]`** con `rec_juego.head(2000)`. 
+>> Salvado como:***`recomendacion_juego.csv`***
+> Creamos la función:**def recomendacion_juego**(`titulo`):
+               
+`Función 7`        
+> Archivo `games` y `items`: Permite construir correspondientemente las columnas `df_games[['app_name']]` y `df_items[['user_id']`.
+> Archivo resultante es: **`rec_usuario[['user_id','app_name']]`** con `rec_usuario.tail(3000)`. 
+>> Salvado como:***`recomendacion_usuario.csv`***
+> Creamos la función:**def recomendacion_usuario**(`user_id`):        
 
-<br/>
+                                                                                                                      ## Desarrollo API
+### *Funciones API*: *`(Pag. 3)`*
+> Para este desarrollo, se crea el Notebook *Funciones API* y se trabaja con los `archivos csv`como insumo para crear las respectivas `funciones API`. Para eso, se importan las librerias necesarias: *`pandas`*, *`from sklearn.feature_extraction.text import TfidfVectorizer`* y *`from sklearn.metrics.pairwise import linear_kernel`*. 
 
-**`Desarrollo API`**:   Propones disponibilizar los datos de la empresa usando el framework ***FastAPI***.
-  
-<br/>
+>* Con los archivos:`user.csv` y `price.csv`, creamos la función:**def userdata**(`User_id`:str):      
+>* Con los archivos:`countreviews.csv`, creamos la función:**def countreviews**(`YYYY-MM-DD` y `YYYY-MM-DD`:str):
+>* Con los archivos:`genero.csv`, creamos la función:**def genre**(`genero`:str): 
+>* Con los archivos:`userforgenre.csv`, creamos la función:**def userforgenre**(`genero`:str): 
+>* Con los archivos:`developer.csv`, creamos la función:**def developer**(`desarrollador`:str): 
+>* Con los archivos:`sentiments.csv`, creamos la función:**def sentiment_analysis**(`anio`:int): 
+>* Con los archivos:`recomendacion_producto.csv`, creamos la función:**def recomendacion_producto**(`titulo`:str): 
 
-> `Importante`<br>
-El MVP _tiene_ que ser una API que pueda ser consumida segun los criterios de [API REST o RESTful](https://rockcontent.com/es/blog/api-rest/). Algunas herramientas como por ejemplo, Streamlit, si bien pueden brindar una interfaz de consulta, no cumplen con las condiciones para ser consideradas una API, sin workarounds.
-
-
-**`Deployment`**: Conoces sobre [Render](https://render.com/docs/free#free-web-services) y tienes un [tutorial de Render](https://github.com/HX-FNegrete/render-fastapi-tutorial) que te hace la vida mas facil :smile: . Tambien podrias usar [Railway](https://railway.app/), o cualquier otro servicio que permita que la API pueda ser consumida desde la web.
-
-<br/>
-
-**`Análisis exploratorio de los datos`**: _(Exploratory Data Analysis-EDA)_
-
-Ya los datos están limpios, ahora es tiempo de investigar las relaciones que hay entre las variables de los datasets, ver si hay outliers o anomalías (que no tienen que ser errores necesariamente :eyes: ), y ver si hay algún patrón interesante que valga la pena explorar en un análisis posterior. Las nubes de palabras dan una buena idea de cuáles palabras son más frecuentes en los títulos, ¡podría ayudar al sistema de recomendación! En esta ocasión vamos a pedirte que no uses librerías para hacer EDA automático ya que queremos que pongas en practica los conceptos y tareas involucrados en el mismo. Puedes leer un poco más sobre EDA en [este articulo](https://medium.com/swlh/introduction-to-exploratory-data-analysis-eda-d83424e47151)
-
-**`Sistema de recomendación`**: 
-
-Una vez que toda la data es consumible por la API, está lista para consumir por los departamentos de Analytics y Machine Learning, y nuestro EDA nos permite entender bien los datos a los que tenemos acceso, es hora de entrenar nuestro modelo de machine learning para armar un sistema de recomendación. 
-
-<br/>
-
-**`Video`**: Necesitas que al equipo le quede claro que tus herramientas funcionan realmente! Haces un video mostrando el resultado de las consultas propuestas y de tu modelo de ML entrenado! Recuerda presentarte, contar muy brevemente de que trata el proyecto y lo que vas a estar mostrando en el video.
-Para grabarlo, puedes usar la herramienta Zoom, haciendo una videollamada y grabando la pantalla, aunque seguramente buscando, encuentres muchas formas mas. 😉
-
-<sub> **Spoiler**: El video NO DEBE durar mas de ***7 minutos*** y DEBE mostrar las consultas requeridas en funcionamiento desde la API y una breve explicacion del modelo utilizado para el sistema de recomendacion. En caso de que te sobre tiempo luego de grabarlo, puedes mostrar explicar tu EDA, ETL e incluso cómo desarrollaste la API. <sub/>
-
-<br/>
-
-## **Criterios de evaluación**
-
-**`Código`**: Prolijidad de código, uso de clases y/o funciones, en caso de ser necesario, código comentado. 
-
-**`Repositorio`**: Nombres de archivo adecuados, uso de carpetas para ordenar los archivos, README.md presentando el proyecto y el trabajo realizado. Recuerda que este último corresponde a la guía de tu proyecto, no importa que tan corto/largo sea siempre y cuando tu 'yo' + 1.5 AÑOS pueda entenderlo con facilidad. 
-
-**`Cumplimiento`** de los requerimientos de aprobación indicados en el apartado `Propuesta de trabajo`
-
-NOTA: Recuerde entregar el link de acceso al video. Puede alojarse en YouTube, Drive o cualquier plataforma de almacenamiento. **Verificar que sea de acceso público, recomendamos usar modo incógnito en tu navegador para confirmarlo**.
-
-<br/>
-Aqui te sintetizamos que es lo que consideramos un MVP aprobatorio, y la diferencia con un producto completo.
-
-<p align="center">
-<img src="https://github.com/HX-PRomero/PI_ML_OPS/raw/main/src/MVP_MLops.PNG"  height=250>
-</p>
-
-
-## **Material de apoyo**
-
-En este mismo repositorio podras encontrar algunos [links de ayuda](hhttps://github.com/HX-PRomero/PI_ML_OPS/raw/main/Material%20de%20apoyo.md). Recuerda que no son los unicos recursos que puedes utilizar!
- 
-<br/>
+### *Integración Funciones API*: *`main.py`*
+> Para integrar las funciones API, es necesario acceder a `VSCode`. En mi caso, yo usé `Anaconda-Environments-myenv-Open Terminal`.
+Una vez en `terminal`, teclea: **cd Desktop** `enter`, **cd PI_ML_OPS** `enter`, **pip install fastapi** `enter`, **pip install uvicorn** `enter`. 
+En la misma ruta de `terminal de anaconda`, teclea separado: **code .** `enter` para entrar a VSCode. Una vez en VSCode, creamos el archivo:**main.py** para incluir primeramente, las librerias necesarias: 
+**`importar pandas as pd`**, **`from sklearn.feature_extraction.text import TfidfVectorizer`**,
+**`from sklearn.metrics.pairwise import linear_kernel`** y **`from fastapi import FastAPI`** 
+>> Escribimos tambien: `app = FastAPI`()
     
-Desarrollo API: Propones disponibilizar los datos de la empresa usando el framework FastAPI. Las consultas que propones son las siguientes:
+### *Cargamos las funciones con sus respectivos decoradores:* 
+    
+1. La primera función debe devolver: Cantidad de dinero gastado por el usuario, el porcentaje de recomendación en base a reviews.recommend y cantidad de items.
+    - `@app.get`('/*userdata*/{`User_id`}')
+    - **def userdata**(`User_id`):
+2. La segunda función debe devolver: Cantidad de usuarios que realizaron reviews entre las fechas dadas y, el porcentaje de recomendación de los mismos en base a reviews.recommend.
+    - `@app.get`('/*countreviews*/{`date1, date2`}')
+    - **def countreviews**(`date1, date2`): 
+3. La tercera función debe devolver: Puesto en el que se encuentra un género sobre el ranking de los mismos y analizados bajo la columna PlayTimeForever.
+    - `@app.get`('/*genre*/{`genero`}')
+    - **def genre**(`genero`): 
+4. La cuarta función debe devolver: Top 5 de usuarios con más horas de juego en el género dado, con su URL (del user) y user_id.
+    - `@app.get`('/*userforgenre*/{`genero`}')
+    - **def userforgenre**(`genero`): 
+5. La quinta función debe devolver: Cantidad de items y porcentaje de contenido Free por año según empresa desarrolladora.
+    - `@app.get`('/*developer*/{`desarrollador`}')
+    - **def developer**(`desarrollador`):  
+6. La sexta función debe devolver: Según el año de lanzamiento, una lista con la cantidad de registros de reseñas de usuarios que se encuentren categorizados con un análisis de sentimiento.
+    - `@app.get`('/*sentiment_analysis*/{`anio`}')
+    - **def sentiment_analysis**(`anio`):   
+7. La septima función debe devolver: Ingresando el titulo de producto, una lista con 5 juegos recomendados para dicho producto.
+    - `@app.get`('/*recomendacion_producto*/{`titulo`}')
+    - **def recomendacion_producto**(`titulo`):
+    
+### **`Deployment`**: 
+* Para que la API pueda ser consumida localmente, y una vez hecho lo anterior, es nevesario teclear desde terminal de `VSCode` o
+desde la terminal donde accediste a tu proyecto. El siguiente comando: **uvicorn main:app --reload** `enter` para obtener  en tu localhost:http://127.0.0.1:8000/docs.
+* Una vez, probada la API localmente puedes continuar en `VSCode` para agregar el archivo txt: `requirements.txt` creado vacío y agregando solamente las librerias que se crean convenientes. 
+* Enseguida subí mi proyecto a GitHub, en mi caso y desde terminal de VSCode, escribí los comandos: **git add .**`enter`, **git commit -m 'PI_ML_OPS'** `enter` y **git push** `enter`.
+* Después accedí a mi cuenta de GitHub, abriendo mis repositorios para ubicar mi proyecto: **PI_ML_OPS** para abrirlo e inspeccionar que todo estaba bien.
+* Finalmente entramos a: https://render.com, y conectamos con la cuenta GitHub para acceder a un `WebService` para cargar el proyecto, para que la `API` este disponible y consumible en la `Nube`, que si todo esta bien: 
+ el icono de color verde `live` aparece y en todos los casos aparentemente se puede ver el link de tu API. En mi caso: https://fastapi-cb8b.onrender.com
+                                         
+## **Sistema de recomendación**
+Una vez creados los insumos de las funciones de recomendación, las cuáles son representadas por: def <b>recomendacion_juego(<em>titulo</em>)</b> y def <b>recomendacion_usuario(<em>user_id</em>)</b>. Creamos las respectivas funciones de recomendación basadas en los siguientes datasets: <i>recomendacion_juego.csv</i> y <i>recomendacion_usuario.csv</i> para integrarlas en la lista de funciones creadas en el
+notebook: <em>Funciones_API</em>
 
-Debes crear las siguientes funciones para los endpoints que se consumirán en la API, recuerden que deben tener un decorador por cada una (@app.get(‘/’)).
+<h3>Acceso Repositorio GitHub</h3>
 
-def PlayTimeGenre( genero : str ): Debe devolver año con mas horas jugadas para dicho género.
-Ejemplo de retorno: {"Año de lanzamiento con más horas jugadas para Género X" : 2013}
+https://github.com/JBE777/PI_ML_OPS
 
-def UserForGenre( genero : str ): Debe devolver el usuario que acumula más horas jugadas para el género dado y una lista de la acumulación de horas jugadas por año.
-Ejemplo de retorno: {"Usuario con más horas jugadas para Género X" : us213ndjss09sdf, "Horas jugadas":[{Año: 2013, Horas: 203}, {Año: 2012, Horas: 100}, {Año: 2011, Horas: 23}]}
+<h3>Acceso Deploy Render</h3>
 
-def UsersRecommend( año : int ): Devuelve el top 3 de juegos MÁS recomendados por usuarios para el año dado. (reviews.recommend = True y comentarios positivos/neutrales)
-Ejemplo de retorno: [{"Puesto 1" : X}, {"Puesto 2" : Y},{"Puesto 3" : Z}]
-
-def UsersNotRecommend( año : int ): Devuelve el top 3 de juegos MENOS recomendados por usuarios para el año dado. (reviews.recommend = False y comentarios negativos)
-Ejemplo de retorno: [{"Puesto 1" : X}, {"Puesto 2" : Y},{"Puesto 3" : Z}]
-
-def sentiment_analysis( año : int ): Según el año de lanzamiento, se devuelve una lista con la cantidad de registros de reseñas de usuarios que se encuentren categorizados con un análisis de sentimiento.
-Ejemplo de retorno: {Negative = 182, Neutral = 120, Positive = 278}
-
-
-Importante
-El MVP tiene que ser una API que pueda ser consumida segun los criterios de API REST o RESTful desde cualquier dispositivo conectado a internet. Algunas herramientas como por ejemplo, Streamlit, si bien pueden brindar una interfaz de consulta, no cumplen con las condiciones para ser consideradas una API, sin workarounds.
-
-Deployment: Conoces sobre Render y tienes un tutorial de Render que te hace la vida mas fácil 😄 . También podrías usar Railway, o cualquier otro servicio que permita que la API pueda ser consumida desde la web.
-
-
-Análisis exploratorio de los datos: (Exploratory Data Analysis-EDA)
-
-Ya los datos están limpios, ahora es tiempo de investigar las relaciones que hay entre las variables del dataset, ver si hay outliers o anomalías (que no tienen que ser errores necesariamente 👀 ), y ver si hay algún patrón interesante que valga la pena explorar en un análisis posterior. Las nubes de palabras dan una buena idea de cuáles palabras son más frecuentes en los títulos, ¡podría ayudar al sistema de predicción! En esta ocasión vamos a pedirte que no uses librerías para hacer EDA automático ya que queremos que pongas en práctica los conceptos y tareas involucrados en el mismo. Puedes leer un poco más sobre EDA en este articulo
-
-Modelo de aprendizaje automático:
-
-Una vez que toda la data es consumible por la API, está lista para consumir por los departamentos de Analytics y Machine Learning, y nuestro EDA nos permite entender bien los datos a los que tenemos acceso, es hora de entrenar nuestro modelo de machine learning para armar un sistema de recomendación. Para ello, te ofrecen dos propuestas de trabajo: En la primera, el modelo deberá tener una relación ítem-ítem, esto es se toma un item, en base a que tan similar esa ese ítem al resto, se recomiendan similares. Aquí el input es un juego y el output es una lista de juegos recomendados, para ello recomendamos aplicar la similitud del coseno. La otra propuesta para el sistema de recomendación debe aplicar el filtro user-item, esto es tomar un usuario, se encuentran usuarios similares y se recomiendan ítems que a esos usuarios similares les gustaron. En este caso el input es un usuario y el output es una lista de juegos que se le recomienda a ese usuario, en general se explican como “A usuarios que son similares a tí también les gustó…”. Deben crear al menos uno de los dos sistemas de recomendación (Si se atreven a tomar el desafío, para mostrar su capacidad al equipo, ¡pueden hacer ambos!). Tu líder pide que el modelo derive obligatoriamente en un GET/POST en la API símil al siguiente formato:
-
-Si es un sistema de recomendación item-item:
-
-def recomendacion_juego( id de producto ): Ingresando el id de producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.
-Si es un sistema de recomendación user-item:
-
-def recomendacion_usuario( id de usuario ): Ingresando el id de un usuario, deberíamos recibir una lista con 5 juegos recomendados para dicho usuario.
-
+https://fastapi-cb8b.onrender.com/docs#/
+                                                                                                                     
+<h3>Acceso Video</h3>
+<p><img src="formas/Git.png", width="150"></p>
+<h6 align=right>México - 2023</h6>

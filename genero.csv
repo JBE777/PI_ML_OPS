@@ -1,372 +1,353 @@
-year,genero,playtime_forever
-2017,Indie,4843
-2016,Indie,3279
-2017,Action,3025
-2017,Casual,2559
-2017,Adventure,2447
-2015,Indie,2227
-2016,Action,2094
-2016,Adventure,1760
-2016,Casual,1628
-2015,Action,1557
-2017,Strategy,1531
-2017,Simulation,1502
-2017,RPG,1286
-2015,Adventure,1217
-2016,Strategy,1147
-2016,Simulation,1136
-2014,Indie,1087
-2014,Action,854
-2016,RPG,832
-2015,Casual,816
-2015,Strategy,791
-2015,Simulation,767
-2017,Early Access,707
-2015,RPG,674
-2014,Adventure,589
-2013,Action,526
-2017,Free to Play,525
-2012,Action,475
-2014,Strategy,451
-2016,Free to Play,439
-2017,Sports,400
-2014,Casual,397
-2014,RPG,389
-2013,Indie,388
-2014,Simulation,360
-2013,Strategy,359
-2016,Early Access,346
-2012,Indie,327
-2017,Massively Multiplayer,321
-2017,Racing,318
-2016,Sports,317
-2013,Adventure,291
-2013,Simulation,285
-2012,Strategy,282
-2012,Simulation,275
-2016,Racing,256
-2012,Casual,233
-2015,Free to Play,228
-2016,Massively Multiplayer,220
-2015,Early Access,213
-2013,Casual,212
-2011,Action,207
-2012,Adventure,179
-2013,RPG,176
-2011,Strategy,169
-2011,Indie,164
-2010,Action,148
-2015,Sports,146
-2012,RPG,128
-2015,Racing,126
-2015,Massively Multiplayer,124
-2014,Free to Play,112
-2010,Indie,106
-2010,Strategy,105
-2017,Design &amp; Illustration,89
-2011,Casual,88
-2010,Adventure,85
-2011,RPG,85
-2009,Action,83
-2011,Adventure,82
-2009,Simulation,80
-2011,Simulation,80
-2014,Sports,78
-2009,Strategy,72
-2014,Massively Multiplayer,72
-2014,Racing,71
-2017,Web Publishing,68
-2010,Casual,67
-2014,Early Access,67
-2016,Design &amp; Illustration,66
-2009,Indie,66
-2013,Free to Play,66
-2009,Casual,62
-2010,RPG,56
-2010,Simulation,56
-2007,Action,56
-2008,Casual,55
-2009,Adventure,52
-2008,Indie,50
-2008,Adventure,50
-2018,Indie,49
-2015,Design &amp; Illustration,45
-2006,Strategy,45
-2008,Action,44
-2013,Sports,43
-2013,Racing,43
-2006,Action,43
-2016,Utilities,40
-2014,Design &amp; Illustration,39
-2017,Utilities,39
-2016,Web Publishing,37
-2014,Web Publishing,36
-2012,Free to Play,35
-2005,Action,34
-2003,Action,34
-2008,Strategy,34
-2007,Strategy,33
-2015,Utilities,33
-2007,Casual,32
-2009,RPG,32
-2012,Racing,30
-2018,Action,29
-2013,Massively Multiplayer,28
-2004,Action,27
-2007,Simulation,27
-2006,Casual,27
-2007,Adventure,27
-2015,Web Publishing,26
-2008,RPG,26
-2013,Web Publishing,26
-2007,Indie,25
-2003,Strategy,25
-2001,Strategy,24
-2004,Strategy,23
-2005,Strategy,23
-2013,Design &amp; Illustration,23
-2008,Simulation,23
-2018,Adventure,23
-1999,Action,23
-2015,Animation &amp; Modeling,23
-2001,Action,23
-2018,Casual,22
-2017,Animation &amp; Modeling,21
-2006,Simulation,21
-2006,Indie,20
-2007,RPG,20
-2011,Racing,20
-2003,Adventure,20
-2006,Adventure,20
-1998,Action,20
-1994,Action,19
-2016,Animation &amp; Modeling,19
-2018,Simulation,19
-2002,Action,19
-2012,Massively Multiplayer,17
-2018,Early Access,17
-2000,Action,17
-2017,Education,17
-2002,Strategy,16
-1997,Action,16
-1997,Adventure,15
-1996,Adventure,15
-1993,Adventure,15
-2018,RPG,14
-2001,Adventure,14
-2014,Utilities,14
-1998,Adventure,14
-2005,Adventure,14
-1995,Action,14
-2005,RPG,14
-1994,Adventure,13
-2008,Racing,13
-2015,Software Training,13
-1999,Strategy,13
-1996,Action,13
-2015,Education,13
-1998,Strategy,12
-2018,Strategy,12
-2014,Animation &amp; Modeling,12
-2006,RPG,12
+release_year,genero,playtime_forever
+2017,Indie,3715
+2016,Indie,2542
+2017,Action,2308
+2017,Casual,1941
+2017,Adventure,1857
+2015,Indie,1729
+2016,Action,1617
+2016,Adventure,1369
+2016,Casual,1281
+2017,Strategy,1184
+2015,Action,1182
+2017,Simulation,1153
+2017,RPG,991
+2015,Adventure,937
+2016,Strategy,899
+2016,Simulation,887
+2014,Indie,835
+2014,Action,640
+2016,RPG,634
+2015,Strategy,612
+2015,Casual,607
+2015,Simulation,599
+2017,Early Access,537
+2015,RPG,513
+2014,Adventure,439
+2017,Free to Play,404
+2013,Action,393
+2012,Action,349
+2014,Strategy,347
+2016,Free to Play,333
+2014,Casual,311
+2014,RPG,308
+2017,Sports,302
+2013,Indie,300
+2014,Simulation,277
+2016,Early Access,270
+2013,Strategy,269
+2017,Massively Multiplayer,244
+2012,Indie,243
+2017,Racing,243
+2016,Sports,239
+2013,Adventure,222
+2013,Simulation,220
+2012,Strategy,218
+2012,Simulation,207
+2016,Racing,190
+2015,Free to Play,172
+2012,Casual,171
+2015,Early Access,164
+2016,Massively Multiplayer,163
+2013,Casual,157
+2011,Action,149
+2013,RPG,134
+2011,Strategy,128
+2012,Adventure,122
+2011,Indie,120
+2015,Sports,115
+2010,Action,114
+2015,Racing,93
+2015,Massively Multiplayer,92
+2014,Free to Play,92
+2010,Strategy,85
+2012,RPG,84
+2010,Indie,78
+2017,Design &amp; Illustration,76
+2011,Adventure,67
+2011,RPG,63
+2011,Casual,62
+2009,Action,61
+2010,Adventure,61
+2016,Design &amp; Illustration,60
+2011,Simulation,59
+2014,Sports,59
+2009,Simulation,56
+2014,Racing,56
+2017,Web Publishing,54
+2014,Early Access,53
+2010,Casual,52
+2014,Massively Multiplayer,49
+2013,Free to Play,49
+2009,Strategy,49
+2009,Indie,46
+2009,Casual,44
+2007,Action,43
+2010,RPG,39
+2010,Simulation,39
+2018,Indie,39
+2008,Adventure,38
+2008,Casual,36
+2009,Adventure,35
+2008,Indie,35
+2015,Design &amp; Illustration,33
+2013,Racing,32
+2017,Utilities,32
+2013,Sports,31
+2008,Action,30
+2016,Web Publishing,30
+2006,Strategy,30
+2006,Action,28
+2013,Massively Multiplayer,26
+2012,Free to Play,26
+2003,Action,25
+2014,Design &amp; Illustration,25
+2007,Strategy,25
+2012,Racing,24
+2014,Web Publishing,24
+2016,Utilities,23
+2005,Action,23
+2009,RPG,22
+2007,Casual,21
+2007,Adventure,20
+2017,Animation &amp; Modeling,20
+2006,Casual,20
+2015,Utilities,20
+2006,Simulation,19
+2013,Web Publishing,19
+2018,Action,19
+2003,Strategy,19
+2008,Strategy,19
+2005,Strategy,19
+2015,Web Publishing,18
+2006,Indie,18
+2004,Action,18
+2013,Design &amp; Illustration,17
+2008,RPG,17
+2001,Strategy,17
+2015,Animation &amp; Modeling,17
+1999,Action,17
+2007,Indie,16
+2003,Adventure,16
+2008,Simulation,16
+2007,Simulation,16
+2018,Casual,15
+2006,Adventure,15
+2004,Strategy,15
+2007,RPG,15
+2018,Adventure,14
+2001,Action,14
+2017,Education,14
+2011,Racing,14
+1998,Action,13
+2000,Action,13
+1997,Action,12
+2018,Simulation,12
 1993,Action,12
-2006,Racing,11
-2003,RPG,11
-2004,Adventure,11
-2016,Education,11
-1995,Adventure,11
-2010,Racing,11
+2002,Strategy,12
+1994,Action,12
+2018,RPG,12
+2016,Animation &amp; Modeling,12
+2018,Early Access,12
+1996,Action,11
+1994,Adventure,11
 2011,Free to Play,11
-2004,Simulation,10
-1992,Adventure,10
-2005,Casual,10
-2001,Simulation,10
-2003,Indie,10
-2011,Sports,10
-2017,Audio Production,9
-2016,Software Training,9
-2017,Software Training,9
+1996,Adventure,11
+2012,Massively Multiplayer,11
+2018,Strategy,11
+1993,Adventure,11
+2002,Action,11
+2014,Animation &amp; Modeling,11
+1999,Strategy,10
+2006,Racing,10
+2005,RPG,10
+2005,Adventure,10
+1998,Adventure,10
+1997,Adventure,10
+2010,Racing,9
+2001,Adventure,9
 2009,Racing,9
-2015,Video Production,9
-2018,Free to Play,9
-1997,Strategy,9
-2011,Massively Multiplayer,8
-2009,Sports,8
-2015,Audio Production,8
-2013,Utilities,8
-1996,Casual,8
-1998,Casual,8
-2000,Strategy,8
-1997,Casual,8
-2000,Adventure,8
-2005,Simulation,8
-2007,Racing,8
-2002,Adventure,7
-2016,Audio Production,7
-1999,Simulation,7
-2001,Casual,7
-1994,Simulation,7
-2013,Animation &amp; Modeling,7
+2006,RPG,9
+2004,Adventure,9
+2015,Software Training,9
+1998,Strategy,9
+2016,Education,9
+2015,Education,9
+2014,Utilities,9
+2015,Video Production,8
+2017,Audio Production,8
+2018,Free to Play,8
+2003,Indie,8
+1995,Action,8
+1992,Adventure,7
 2003,Casual,7
-1995,Strategy,7
-2000,Simulation,7
-2013,Early Access,7
-2001,Indie,7
-2010,Free to Play,7
-2005,Racing,7
-1998,Simulation,7
-1991,Adventure,7
-2012,Sports,6
-2001,RPG,6
-2004,Casual,6
-2000,Casual,6
-2005,Indie,6
-2013,Education,6
-2004,RPG,6
-2018,Sports,6
-1996,Strategy,6
-1997,Indie,6
-1999,RPG,6
+2017,Software Training,7
+2003,RPG,7
+1997,Strategy,7
+1998,Casual,7
+2001,Simulation,7
+2001,Casual,7
+2004,Simulation,7
+2005,Casual,7
+1995,Adventure,7
+2008,Racing,7
+2005,Simulation,7
+2011,Sports,7
+2000,Adventure,7
+2011,Massively Multiplayer,7
+1997,Casual,7
+1996,Casual,6
+1998,Simulation,6
+1999,Simulation,6
+2009,Sports,6
+2000,Simulation,6
 2008,Free to Play,6
-1999,Adventure,6
-2007,Free to Play,6
-2002,RPG,5
-2004,Indie,5
-2008,Massively Multiplayer,5
+2007,Racing,6
+1991,Adventure,6
+2005,Racing,6
+2013,Early Access,5
+2013,Animation &amp; Modeling,5
+2016,Software Training,5
+2002,Adventure,5
+1994,Simulation,5
+2013,Education,5
+2016,Audio Production,5
+2010,Free to Play,5
+2013,Utilities,5
 1998,Indie,5
-1992,Action,5
-2002,Simulation,5
-2014,Education,5
-1989,Adventure,5
-1990,Simulation,4
-2003,Simulation,4
-2002,Casual,4
-1992,RPG,4
+2000,Strategy,5
+2007,Free to Play,5
+2001,Indie,5
+1999,Adventure,5
+2005,Indie,5
+2015,Audio Production,5
 2014,Audio Production,4
-1991,Action,4
-2006,Massively Multiplayer,4
-1993,Simulation,4
-2008,Sports,4
-2000,RPG,4
-2016,Video Production,4
-1994,Strategy,4
-1997,RPG,4
-1998,Racing,4
+1992,RPG,4
+2012,Sports,4
 2018,Racing,4
-1995,Casual,4
+2014,Education,4
+1997,Indie,4
+2008,Massively Multiplayer,4
+2002,RPG,4
+1997,RPG,4
+2004,Indie,4
+2008,Sports,4
+2003,Simulation,4
+1995,Strategy,4
 1999,Casual,4
-2007,Massively Multiplayer,4
+1999,RPG,4
+2000,RPG,4
+1998,Racing,4
+2000,Casual,4
+1995,Casual,4
+1991,Action,3
+2007,Massively Multiplayer,3
+1992,Action,3
 2017,Video Production,3
-1991,Strategy,3
-1999,Racing,3
-1987,Adventure,3
-1999,Indie,3
-2001,Free to Play,3
-2015,Photo Editing,3
 2014,Software Training,3
+2004,RPG,3
 1989,Simulation,3
-1990,Adventure,3
+1989,Adventure,3
+1987,Adventure,3
 2000,Indie,3
-2009,Free to Play,3
-2002,Indie,3
+2004,Casual,3
+1999,Racing,3
 1996,Indie,3
-2017,Photo Editing,3
-2006,Free to Play,3
-1995,RPG,3
-1994,Casual,3
-1995,Simulation,3
 1993,Strategy,3
-1993,Casual,3
-1996,Simulation,3
-1996,Racing,3
-2007,Sports,2
-1995,Racing,2
-2013,Software Training,2
-1998,RPG,2
-1988,Adventure,2
-1995,Indie,2
-1996,RPG,2
-2010,Massively Multiplayer,2
-1984,Casual,2
-2016,Photo Editing,2
-1987,Simulation,2
-1988,Simulation,2
-1995,Sports,2
-2010,Sports,2
-2006,Utilities,2
-1999,Sports,2
-2006,Sports,2
-2013,Audio Production,2
-2014,Photo Editing,2
-2001,Massively Multiplayer,2
-1991,RPG,2
-2003,Massively Multiplayer,2
-1988,Strategy,2
-1991,Simulation,2
-1992,Strategy,2
-2003,Racing,2
-2018,Massively Multiplayer,2
-1993,RPG,2
-1990,Action,2
-2005,Sports,2
-1997,Simulation,2
-1994,RPG,2
-1994,Racing,2
-1997,Racing,2
+1993,Simulation,3
+2016,Video Production,3
+1995,Simulation,3
 1989,Action,2
+1998,RPG,2
+1988,Strategy,2
 2003,Free to Play,2
-2019,Strategy,1
-2021,Indie,1
-2021,Adventure,1
+1988,Adventure,2
+2002,Simulation,2
+2009,Free to Play,2
+2003,Racing,2
+2002,Casual,2
+2001,RPG,2
+2001,Massively Multiplayer,2
+1995,Racing,2
+1995,RPG,2
+1995,Indie,2
+1994,Casual,2
+1999,Sports,2
+2002,Indie,2
+2003,Massively Multiplayer,2
+1993,RPG,2
+2006,Massively Multiplayer,2
+1992,Strategy,2
+1997,Simulation,2
+2007,Sports,2
+1997,Racing,2
+1991,Strategy,2
+1999,Indie,2
+2006,Utilities,2
+2014,Photo Editing,2
+2013,Software Training,2
+1994,RPG,2
+2006,Free to Play,2
+2010,Massively Multiplayer,2
+2017,Photo Editing,2
+1993,Casual,2
+1996,RPG,2
+1994,Strategy,2
+2018,Sports,1
 2019,Action,1
-2019,RPG,1
-2018,Design &amp; Illustration,1
-2019,Indie,1
-2019,Early Access,1
-2019,Adventure,1
-2018,Utilities,1
 2018,Education,1
+2019,Adventure,1
+2019,Indie,1
+2019,RPG,1
+2021,Adventure,1
+2021,Indie,1
 1983,Action,1
-2014,Video Production,1
-1986,Simulation,1
-1992,Casual,1
-1991,Casual,1
-1990,Strategy,1
-1990,RPG,1
+2016,Photo Editing,1
+1994,Racing,1
+1992,Simulation,1
+1992,Indie,1
+1991,Simulation,1
+1991,RPG,1
+1990,Simulation,1
+1990,Action,1
 1989,RPG,1
-1988,RPG,1
+1988,Simulation,1
 1988,Indie,1
 1988,Action,1
+1987,Simulation,1
+1986,Simulation,1
 1986,RPG,1
-1992,Simulation,1
 1986,Indie,1
 1986,Casual,1
 1986,Adventure,1
-1985,Simulation,1
 1984,Indie,1
+1984,Casual,1
 1984,Adventure,1
 1984,Action,1
 1983,Casual,1
-1992,Indie,1
 1994,Indie,1
+1995,Sports,1
+2015,Photo Editing,1
+1996,Free to Play,1
+2013,Audio Production,1
 2012,Web Publishing,1
-2006,Photo Editing,1
 2012,Utilities,1
-2012,Early Access,1
-2012,Design &amp; Illustration,1
 2012,Animation &amp; Modeling,1
+2010,Sports,1
 2009,Utilities,1
 2009,Massively Multiplayer,1
 1983,Adventure,1
-2006,Video Production,1
+2006,Sports,1
 2005,Web Publishing,1
-1996,Free to Play,1
+2005,Sports,1
 2005,Massively Multiplayer,1
 2004,Racing,1
 2004,Free to Play,1
-2001,Early Access,1
+2001,Free to Play,1
 2000,Racing,1
 1999,Free to Play,1
-1997,Sports,1
+1996,Strategy,1
 1996,Sports,1
+1996,Simulation,1
+1996,Racing,1
 2021,RPG,1
