@@ -1,5 +1,4 @@
 <p><img src="formas/henry.png", width="150"></p>
-<p><img src="formas/ETL.jpg", width="200"></p>
 <h5>El primer proyecto individual de la etapa de labs. Este proyecto, PI_ML_OPS, se situá en el rol de un MLOps Engineer y es el:</h5>
 <h1 align=center><span style="font-family:Arial Black">PROYECTO INDIVIDUAL Nº1</span></h1>
 <h6 align=center><i>de</i></h6>
@@ -22,81 +21,52 @@
 > Para este desarrollo, se crea el Notebook *ETL* y se trabaja con los `archivos json`: ***output_steam_games.json***, ***australian_user_reviews.json*** y ***australian_users_items.json***. Para abrir los archivos, importamos las librerias necesarias: ***pandas*** y ***ast*** para trabajar con los datasets `json` mencionados. 
 > Enseguida, lo que encontramos cuando abrimos cada archivo json.
 
-### *`output_steam_games.json(1)`*:
-Abrimos el archivo directamente con `pandas`y eliminamos los valores `nulos`, generando 22530 registros y 13 columnas. 
-Extraemos la columna `year` de la columna `release_date`, para incrementar en una columna más. 
-Eliminamos las columnas para reducir a 6 columnas: `genres`, `app_name`, `title`, `release_date`, `id` y `year`. 
-La columna `genres` muestra sus registros en forma de `lista`, así que los apilamos en una nueva columna que le llamamos `genero`.
-Finalmente, eliminamos la columna `genres` que resulta en un dataset de `55607 registros y 6 columnas` que es salvado como: ***`df_games.csv`***
+>  *`output_steam_games.json(1)`*:
+> Abrimos el archivo directamente con `pandas`y eliminamos los valores `nulos`, generando 22530 registros y 13 columnas. 
+> Extraemos la columna `year` de la columna `release_date`, para incrementar en una columna más. 
+> Eliminamos las columnas para reducir a 6 columnas: `genres`, `app_name`, `title`, `release_date`, `id` y `year`. 
+> La columna `genres` muestra sus registros en forma de `lista`, así que los apilamos en una nueva columna que le llamamos `genero`.
+> Finalmente, eliminamos la columna `genres` que resulta en un dataset de `55607 registros y 6 columnas` que es salvado como: ***`df_games.csv`***
 
-### *`australian_user_reviews.json(2)`*:
-Apoyado en la librería `ast` y partiendo de una lista vacia, abrimos el archivo mediante `open`, transformamos la lista en un DataFrame que nos arroja 3 columnas:`user_id`,`user_url`,`reviews`. Esta última columna `reviews`, esta anidada; pero, antes de desanidarla crearemos la función  `sentiment_analysis` usando la librería: `TextBlob`, la cuál deriva en 3 métricas: Negative = 0, Neutral = 1 y Positive = 2. Una vez creada la función `sentiment_analysis`, la aplicamos a la columna `reviews` apoyados en el método `apply` es construida la columna:`sentiment_analysis`. 
-Enseguida para desanidar la columna: `reviews`, iteramos las columnas de el archivo(2), usando el método:`iterrows`y
-mediante un diccionario alojamos todas las columnas en el `archivo`(2), incluyendo las columnas desanidadas en una lista que transformamos en DataFrame y eliminamos la columna `reviews`. 
-Ahora, convertimos la columna *`posted`* a formato fecha *`AAAA-MM-DD`*, 
-usando las librerías: `dateutil y parser` y eliminamos la palabra *`Posted`* de cada registro de la columna *`posted`* y aplicamos la función `parse_date`a la columna `posted` y creamos la columna `posted_date` y eliminamos la columna `posted`. Entonces, desde la columna `posted_date` extraemos la columna `year` generando `8 columnas y 59305 registros`. 
-Las columnas generadas son: `user_id`, `user_url`, `sentiment_analysis`, `item_id`, `recommend`, `review`, `posted_date`, `year`. Eliminamos los valores nulos de la columna `year` para terminar con `59280 registros y 8 columnas`.
-Resultante de este archivo es salvado como dataset: ***`df_reviews.csv`***
+>  *`australian_user_reviews.json(2)`*:
+> Apoyado en la librería `ast` y partiendo de una lista vacia, abrimos el archivo mediante `open`, transformamos la lista en un DataFrame que nos arroja 3 columnas:`user_id`,`user_url`,`reviews`. Esta última columna `reviews`, esta anidada; pero, antes de desanidarla crearemos la función  `sentiment_analysis` usando la librería: `TextBlob`, la cuál deriva en 3 métricas: Negative = 0, Neutral = 1 y Positive = 2. Una vez creada la función `sentiment_analysis`, la aplicamos a la columna `reviews` apoyados en el método `apply` es construida la columna:`sentiment_analysis`. 
+> Enseguida para desanidar la columna: `reviews`, iteramos las columnas de el archivo(2), usando el método:`iterrows`y
+> mediante un diccionario alojamos todas las columnas en el `archivo`(2), incluyendo las columnas desanidadas en una lista que transformamos en DataFrame y eliminamos la columna `reviews`. 
+> Ahora, convertimos la columna *`posted`* a formato fecha *`AAAA-MM-DD`*, 
+> usando las librerías: `dateutil y parser` y eliminamos la palabra *`Posted`* de cada registro de la columna *`posted`* y aplicamos la función `parse_date`a la columna `posted` y creamos la columna `posted_date` y eliminamos la columna `posted`. Entonces, desde la columna `posted_date` extraemos la columna `year` generando `8 columnas y 59305 registros`. 
+> Las columnas generadas son: `user_id`, `user_url`, `sentiment_analysis`, `item_id`, `recommend`, `review`, `posted_date`, `year`. Eliminamos los valores nulos de la columna `year` para terminar con `59280 registros y 8 columnas`.
+> Resultante de este archivo es salvado como dataset: ***`df_reviews.csv`***.
 
-### *`australian_users_items.json(3)`*:
-Abrimos el archivo mediante `open` y creando un bucle `for` vamos agregando linea por linea en una lista. Transformamos la lista en DataFrame, que nos arroja 5 columnas: `user_id`, `items_count`, `steam_id`, `user_url` e `items`. 
-Esta última columna `items`, esta anidada. La cuál, desanidamos con la iteracion de las columnas de el archivo(3), usando el método:`iterrows`y
-mediante un diccionario alojamos todas las columnas en el `archivo`(3), incluyendo las columnas desanidadas en una lista que transformamos en DataFrame que genera 7 columnas y 5153209 registros. 
-Las columnas generadas son: `user_id`, `item_count`, `steam_id`, `user_url`, `item_id`,`item_name`, `playtime_forever`. 
-Eliminamos la columna `steam_id` y los registros duplicados para tomar para el proyecto solamente los últimos `80000 registros y 6 columnas`.
-Resultante de este archivo es salvado como dataset: ***`df_items.csv`***. Sí tomamos todo el dataset con `5094092 registros y 6 columnas`, podemos salvarlo como:  ***`df_items_plus.csv`***
+>  *`australian_users_items.json(3)`*:
+> Abrimos el archivo mediante `open` y creando un bucle `for` vamos agregando linea por linea en una lista. Transformamos la lista en DataFrame, que nos arroja 5 columnas: `user_id`, `items_count`, `steam_id`, `user_url` e `items`. 
+> Esta última columna `items`, esta anidada. La cuál, desanidamos con la iteracion de las columnas de el archivo(3), usando el método:`iterrows`y
+> mediante un diccionario alojamos todas las columnas en el `archivo`(3), incluyendo las columnas desanidadas en una lista que transformamos en DataFrame que genera 7 columnas y 5153209 registros. 
+> Las columnas generadas son: `user_id`, `item_count`, `steam_id`, `user_url`, `item_id`,`item_name`, `playtime_forever`. 
+> Eliminamos la columna `steam_id` y los registros duplicados para tomar para el proyecto solamente los últimos `80000 registros y 6 columnas`.
+> Resultante de este archivo es salvado como dataset: ***`df_items.csv`***. Sí tomamos todo el dataset con `5094092 registros y 6 columnas`, podemos salvarlo como:  ***`df_items_plus.csv`***
 
-### *`Resumen`*:
+### *`Resumen_ETL`*:
 De la suma de los archivos: `df_games.csv`, `df_reviews.csv` y `df_items_plus.csv`, y antes de renombrar la columna `year` de los 2 primeros archivos
-como `release_year` y `posted_year` respectivamente, generamos el archivo de trabajo: `df_trabajo.csv` con 11 columnas y 42454 registros.
+como `release_year` y `posted_year` respectivamente, generamos el archivo de trabajo: `df_trabajo.csv` con 11 columnas y 42454 registros. Este archivo es que utilizamos para trabajar
+porque la fusión de los archivos `df_games.csv`, `df_reviews.csv` y `df_itema.csv` resultaron únicamente con las mismas 11 columnas, pero con sólo 890 registros.
 
-## API
-### *`Insumos y funciones (Pag. 2)`*
-* Para este desarrollo, se crea el Notebook *API* y se trabaja con los `archivos.csv`: **`df_games.csv`**, **`df_reviews.csv`** y **`df_items.csv`**. Para abrir los archivos, importamos la libreria necesaria: ***pandas*** para trabajar con los datasets mencionados. Construyendo los insumos de cada función y salvando, el respectivo archivo como `csv`. 
-
-`Función 1`
-> Archivo `games` y `items`: Permite construir respectivamente las columnas `df_games[['year','genero']]` y `df_items[['user_id','playtime_forever']]`.
-> Archivo resultante es: **`genero[['year','genero','playtime_forever']]`**.
->> Salvado como:***`genero.csv`*** 
-> Creamos la función:**def PlayTimeGenre**(`genero`:str):  
-
-`Función 2`        
-> Archivo `games`, `items` y  `reviews`: Permite construir respectivamente las columnas `df_games[['genero']]`,`df_items[['user_id','playtime_forever']]` y `df_reviews[['user_id','year']]`.
-> Archivo resultante es: **`gene[['year','genero','user_id','playtime_forever']]`**. 
->> Salvado como:***`userforgenre.csv`***
-> Creamos la función:**def UserForGenre**(`genero`:str):
-        
-`Función 3`        
-> Archivo `games` y `reviews`: Permite construir respectivamente las columnas `df_games[['app_name']]` y `df_reviews[['sentiment_analysis','recommend','year']]`.
-> Archivo resultante es: **`rec[['year','app_name','sentiment_analysis']]`** con `recommend==True`. 
->> Salvado como:***`UsersRecommend.csv`***
-> Creamos la función:**def UsersRecommend**(`anio`:int):
-        
-`Función 4`        
-> Archivo `games` y `reviews`: Permite construir respectivamente las columnas `df_games[['app_name']]` y `df_reviews[['sentiment_analysis','recommend','year']]`.
-> Archivo resultante es: **`rec[['year','app_name','sentiment_analysis']]`** con `recommend==False`. 
->> Salvado como:***`UsersNotRecommend.csv`***
-> Creamos la función:**def UsersNotRecommend**(`anio`:int):
-        
-`Función 5`        
-> Archivo `reviews`: Permite construir las columnas `df_reviews[['year','review','sentiment_analysis']]`.
-> Archivo resultante es: **`sent[['year','review','sentiment_analysis']]`**. 
->> Salvado como:***`sentimientos.csv`***
-> Creamos la función:**def sentiment_analysis**(`anio`:int):
-        
-`Función 6`        
-> Archivo `games` y `reviews`: Permite construir correspondientemente las columnas `df_games[['title']]` y `df_reviews[['review']]`.
-> Archivo resultante es: **`rec_juego[['title','review']]`** con `rec_juego.head(2000)`. 
->> Salvado como:***`recomendacion_juego.csv`***
-> Creamos la función:**def recomendacion_juego**(`titulo`):
-               
-`Función 7`        
-> Archivo `games` y `items`: Permite construir correspondientemente las columnas `df_games[['app_name']]` y `df_items[['user_id']`.
-> Archivo resultante es: **`rec_usuario[['user_id','app_name']]`** con `rec_usuario.tail(3000)`. 
->> Salvado como:***`recomendacion_usuario.csv`***
-> Creamos la función:**def recomendacion_usuario**(`user_id`):        
-
-                                                                                                                      ## Desarrollo API
+## Desarrollo EDA
+### *`Exploración y análisis de datos`*(Pag. 2)
+> Para este desarrollo, se crea el Notebook *EDA* y se trabaja con el `archivo.csv`: **`df_trabajo.csv`**. Para abrir los archivos, importamos la libreria necesaria: ***pandas*** para trabajar con los datasets mencionados. Construyendo los insumos de cada función y salvando, el respectivo archivo como `csv`. 
+### *`Analizando los datos para crear el insumo de mis endpoints`*.
+Para esto, necesitamos revisar que columnas de nuestro archivo de trabajo nos genera que archivo.csv o insumo para nuestro endpoint.
+* Las columnas: `df[['genero','release_year','playtime_forever']]`, genera el archivo `genero.csv`.
+* Las columnas: `df[['genero','posted_year','user_id','playtime_forever']]`, genera el archivo `userforgenre.csv`.
+* Las columnas: `df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersRecommend.csv`.
+* Las columnas: `df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersNotRecommend.csv`.
+* Las columnas: `df[['release_year','review','sentiment_analysis']]`, genera el archivo `sentimientos.csv`.
+* Las columnas: `df[['title','review']]`, genera el archivo `recomendacion_juego.csv`.
+* Las columnas: `df[['user_id','title']]`, genera el archivo `recomendacion_usuario.csv`.
+### *`Analizando los datos de mis variables`*
+Segun el método `info()`, tenemos un total de  42454 registros y 11 columnas en nuestro dataset de trabajo, 6 variables son numéricas (`item_id`, `playtime_forever`, `sentiment_analysis`, `posted_year`, `id` y `release_year`), 
+1 variable es booleana (`recommend`) y 4 variables son objetos(`user_id`,`review`,`title` y `genero`).        
+ 
+## Desarrollo API
 ### *Funciones API*: *`(Pag. 3)`*
 > Para este desarrollo, se crea el Notebook *Funciones API* y se trabaja con los `archivos csv`como insumo para crear las respectivas `funciones API`. Para eso, se importan las librerias necesarias: *`pandas`*, *`from sklearn.feature_extraction.text import TfidfVectorizer`* y *`from sklearn.metrics.pairwise import linear_kernel`*. 
 

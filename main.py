@@ -17,16 +17,18 @@ def PlayTimeGenre(genero:str):
 
 @app.get("/UserForGenre/{genero}")
 def UserForGenre(genero:str): 
-    '''Debe devolver el usuario que acumula más horas jugadas para el género dado y una 
-    lista de la acumulación de las horas jugadas por año. Ejemplo de retorno: 
-    {"Usuario con más horas jugadas para el Género X" : us213ndjss09sdf, "Horas jugadas":
-    [{Año: 2013, Horas: 203}, {Año: 2012, Horas: 100}, {Año: 2011, Horas: 23}]}'''
+    '''Debe devolver el usuario que acumula más minutos jugados para el género dado y una 
+    lista de la acumulación de los minutos jugados por año. Ejemplo de retorno: 
+    {"Usuario con más minutos jugados para el Género X" : us213ndjss09sdf, "Minutos jugados":
+    [{Año: 2013, Minutos: 203}, {Año: 2012, Minutos: 100}, {Año: 2011, Minutos: 23}]}'''
     df = pd.read_csv('./userforgenre.csv')
     gen = df.loc[df.genero==genero]
     u = gen.user_id.to_list()[0]
     d = gen.posted_year.to_list()
     f = gen['playtime_forever'].to_list()
-    return {'Usuario por género':u,'Horas jugadas':{'Año':d[0:3], 'Horas':f[0:3]}}
+    return {'Usuario por género':u,'Minutos jugados':[{'Año':d[0], 'Minutos':f[0]},{'Año':d[1], 'Minutos':f[1]},
+                            {'Año':d[2], 'Minutos':f[2]}, {'Año':d[3], 'Minutos':f[3]},{'Año':d[4], 'Minutos':f[4]}]}
+    
 
 @app.get("/UsersRecommend/{anio}")
 def UsersRecommend(anio:int): 
@@ -67,22 +69,22 @@ def sentiment_analysis(anio:int):
     c = pos.to_list()[2]
     return {'Negative':a, 'Neutral':b,'Positive':c}
 
-@app.get("/recomendacion_juego/{titulo}")
-def recomendacion_juego(titulo):
-    '''Ingresando el id de producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.'''
+@app.get("/recomendacion_juego/{review}")
+def recomendacion_juego(review):
+    '''Ingresando el review del juego, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.'''
     g = pd.read_csv('./recomendacion_juego.csv')
     tfidf = TfidfVectorizer(stop_words = 'english')
     g['review'] = g['review'].fillna('')
     tfidf_matriz = tfidf.fit_transform(g['review']) 
     coseno_sim = linear_kernel(tfidf_matriz,tfidf_matriz)
-    indices = pd.Series(g.index, index = g['title'])
-    idx = indices[titulo]
+    indices = pd.Series(g.index, index = g['review'])
+    idx = indices[review]
     simil = list(enumerate(coseno_sim[idx]))
-    simil = sorted(simil, key = lambda x: x[0],reverse=True)
+    simil = sorted(simil, key = lambda x: x[1],reverse=True)
     simil = simil[1:11]
-    usuario_index = [g[0] for g in simil]
-    lista = g['title'].iloc[usuario_index].to_list()[:5]
-    return {'Recomendacion_usuario':lista}
+    juego_index = [g[0] for g in simil]
+    lista = g['title'].iloc[juego_index].to_list()[:5]
+    return {'Recomendacion_juego':lista}
 
 @app.get("/recomendacion_usuario/{user_id}")
 def recomendacion_usuario(user_id):
