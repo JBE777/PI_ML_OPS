@@ -72,13 +72,22 @@ def sentiment_analysis(anio:int):
     return {'Negative':int(a[0]), 'Neutral':int(b[0]),'Positive':int(c[0])}
 
 
-@app.get("/recomendacion_juego/{id_producto}")
-def recomendacion_juego(id_producto):
-    '''Ingresando el 'id' de un producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.'''
-    df = pd.read_csv('./recomendacion_juego.csv')
-    f = df[df.id==id_producto]
-    lista = f.title.to_list()
-    return {'Recomendacion_juego':lista[:5]}
+@app.get("/recomendacion_juego/{titulo}")
+def recomendacion_juego(titulo):
+    '''Ingresando el titulo de un producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.'''
+    f = pd.read_csv('./recomendacion_juego.csv')
+    tfidf = TfidfVectorizer(stop_words = 'english')
+    f['review'] = f['review'].fillna('')
+    tfidf_matriz = tfidf.fit_transform(f['review']) 
+    coseno_sim = linear_kernel(tfidf_matriz,tfidf_matriz)
+    indices = pd.Series(f.index, index = f['title'])
+    idx = indices[titulo]
+    simil = list(enumerate(coseno_sim[idx]))
+    simil = sorted(simil, key = lambda x: x[0],reverse=True)
+    simil = simil[1:11]
+    juego_index = [f[0] for f in simil]
+    lista = f['title'].iloc[juego_index].to_list()[:5]
+    return {'Recomendacion_juego':lista}
 
 @app.get("/recomendacion_usuario/{user_id}")
 def recomendacion_usuario(user_id):

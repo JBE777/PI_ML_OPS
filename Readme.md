@@ -7,7 +7,7 @@
 
 <h2>Objetivo</h2>
 
-> ***Crear una API con funcionalidades que serán acompañadas por un modelo de Machine Learning, partiendo de tres archivos `gz` que se les extraerá el respectivo archivo `json` para ser convertidos en DataFrames de ser necesario, esto con el fin de generar el dataset de trabajo; este último como elemento para gestar los insumos para las funciones de la API a diseñar.***
+>> ***Crear una API con funcionalidades que serán acompañadas por un modelo de Machine Learning, partiendo de tres archivos `gz` que se les extraerá el respectivo archivo `json` para ser convertidos en DataFrames de ser necesario, esto con el fin de generar el dataset de trabajo; este último como elemento para gestar los insumos para las funciones de la API a diseñar.***
 
 <h2>Introducción</h2>
 
@@ -17,8 +17,8 @@
 
 ## Desarrollo ETL
 ### *`Extracción, transformación y carga de datos`*(Pag. 1)
->> Para este desarrollo, se crea el Notebook *ETL* y se trabaja con los `archivos json`: ***output_steam_games.json***, ***australian_user_reviews.json*** y ***australian_users_items.json***. Para abrir los archivos, importamos las librerias necesarias: ***`pandas`***, ***`ast`*** y ***`warnings`***, esta última libreria nos proporciona el método `filterwarnings('ignore')` con el parámetro `ignore` e ignorar los `warnings`, para trabajar con los datasets `json` mencionados. 
->> Enseguida, lo que encontramos cuando abrimos cada archivo json.
+> Para este desarrollo, se crea el Notebook *ETL* y se trabaja con los `archivos json`: ***output_steam_games.json***, ***australian_user_reviews.json*** y ***australian_users_items.json***. Para abrir los archivos, importamos las librerias necesarias: ***`pandas`***, ***`ast`*** y ***`warnings`***, esta última libreria nos proporciona el método `filterwarnings('ignore')` con el parámetro `ignore` e ignorar los `warnings`, para trabajar con los datasets `json` mencionados. 
+> Enseguida, lo que encontramos cuando abrimos cada archivo json.
 #### *`output_steam_games.json(1)`*:
 > Abrimos el archivo directamente con `pandas`y eliminamos los valores `nulos`, generando 22530 registros y 13 columnas. 
 > Limpiamos la columna `release_date` para extraer la columna `release_year` e incrementar en una columna más. 
@@ -45,7 +45,7 @@ Haciendo las limpiezas y transformaciones correspondientes de los archivos: `df_
 
 ## Desarrollo EDA
 ### *`Exploración y análisis de datos`*(Pag. 2)
->> Para este desarrollo, se crea el Notebook *EDA* y se trabaja con el `archivo.csv`: **`df_trabajo.csv`**. Para abrir los archivos, importamos la libreria necesarias: ***pandas, seaborn, matplotlib.pyplot, wordcloud, STOPWORDS y warnings***, esta última libreria nos proporciona el método `filterwarnings('ignore')` con el parámetro `ignore` e ignorar los `warnings`, que nos sirve para construir los insumos de cada función y salvando, el respectivo archivo como `csv`. 
+> Para este desarrollo, se crea el Notebook *EDA* y se trabaja con el `archivo.csv`: **`df_trabajo.csv`**. Para abrir los archivos, importamos la libreria necesarias: ***pandas, seaborn, matplotlib.pyplot, wordcloud, STOPWORDS y warnings***, esta última libreria nos proporciona el método `filterwarnings('ignore')` con el parámetro `ignore` e ignorar los `warnings`, que nos sirve para construir los insumos de cada función y salvando, el respectivo archivo como `csv`. 
 #### *`Analizando los datos para crear el insumo de mis endpoints`*
 > Segun el método `info()`, tenemos un total de 43863 registros y 11 columnas en nuestro dataset de trabajo, 6 variables son numéricas (`item_id`, `playtime_forever`, `sentiment_analysis`, `posted_year`, `id` y `release_year`), 
 1 variable es booleana (`recommend`) y 4 variables son objetos(`user_id`,`review`,`title` y `genero`). Sin embargo, necesitamos generar la columna `playtime_hours` a partir de la columna `playtime_forever` para resolver los primeros endpoints.
@@ -55,28 +55,28 @@ Haciendo las limpiezas y transformaciones correspondientes de los archivos: `df_
 >* `df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersRecommend.csv`. 
 >* `df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersNotRecommend.csv`. 
 >* `df[['release_year','review','sentiment_analysis']]`, genera el archivo `sentimientos.csv`. 
->* `df[['title','id']]`, genera el archivo `recomendacion_juego.csv`. 
+>* `df[['title','review']]`, genera el archivo `recomendacion_juego.csv`. 
 >* `df[['user_id','title']]`, genera el archivo `recomendacion_usuario.csv`.
 #### *`Analizando los datos de mis variables`*
-* Para esto, empezamos a trabajar con las variables numéricas (`item_id, id, sentiment_analysis, posted_year, release_year, playtime_hours`) aplicando los metodos necesarios para obtener los
+>* Para esto, empezamos a trabajar con las variables numéricas (`item_id, id, sentiment_analysis, posted_year, release_year, playtime_hours`) aplicando los metodos necesarios para obtener los
       estadísticos `describe()` y las correlaciones `corr()` de nuestras variables sobresaliendo de los 3 parámetros de la columna de *`sentiment_analysis`*, el parámetro **`Neutral`** con **`27913`** registros
       de los 43863 registros totales. El año de los `reviews`, la columna *`posted_year`* sobresale el año **`2014`** con **`15680`** registros, y seguido muy cerca por el año *`2015`* con 14311 registros.
       La columna *`release_year`* muestra **`15684`** registros para el año **`2017`**, y en segundo lugar el año 2016 con 10996 registros. La correlación de Pearson más alta es `0.580668` y esta entre las columnas **`release_year`** y **`id`**. 
-* Enseguida, usamos la variable `booleana` representada por la columna *`recommend`*
+>* Enseguida, usamos la variable `booleana` representada por la columna *`recommend`*
       para matizar las variables más correlacionadas mediante *`True`* y *`False`* sobresaliendo **`True`** con **`38926`** registros y `False` con 4937 registros siendo considerados
       respectivamente los juegos *`Recomendados`* y *`No Recomendados`*. 
 > En cantidad de títulos más recomendados de videojuegos recae en **`Lost Summoner Kitty y Real Pool 3D - Poolians`** con **`5`** registros en cantidad.
 > El segundo lugar con **`4`** registros esta representado por **`Ironbound`** y finalmente el tercer lugar con **`3`** registros lo representa **`Battle Royale Trainer`**.
 > Para continuar con los titulos recomendados, graficamos una nube de palabras y encontramos que las palabras que más se repiten son: **`Ultimate, Puzzles, Puzzle, Pack, Collector, Original`**. 
-* Analizando los géneros de los videojuegos, vemos la primera posición la ocupa `Indie` con `10109` registros y `Action` le sigue con `7378` registros.
+>* Analizando los géneros de los videojuegos, vemos la primera posición la ocupa `Indie` con `10109` registros y `Action` le sigue con `7378` registros.
       Las palabras o géneros que mas se repiten en su nube de palabras son: `Indie` y `Action`.
       Llamando la atención `Strategy`,que aparece con letras grandes, que aunque el quinto lugar en cantidad de registros e
-      incluido en la lista de generos del juego mas recomendado.
+      incluido en la lista de generos del juego mas recomendado. Y en la nube de palabras de la columna `review`, resaltando las palabras `game, play, fun, one, will, good, time, make, great`.
 ### *`Resumen_EDA`*:
-El primer juego más recomendado ubica 5 géneros con sus indices: `Casual[0], Action[1], Indie[2], Strategy[3] y Simulation[5]` con comentarios del segmento `Neutral`, y así manifestado por la columna de `sentiment_analysis` mediante el código `1`. 
-El segundo juego más recomendado ubica 5 géneros con sus índices: `Free to Play[6], Indie[7], Casual[9], Sports[12] y Simulation[16]` con comentarios del segmento `Positive`, y así manifestado por la columna de `sentiment_analysis` mediante el código `2`.
-El tercer juego más recomendado ubica 4 géneros con sus índices: `Free to Play[4], Indie[8], Strategy[10] y RPG[11]` con comentarios del segmento `Neutral` para el `género:Free to Play` y `Positive` para el resto de `géneros `, y así manifestado por la columna de `sentiment_analysis` mediante el código `1` y `2` correspondientemente.
-El cuarto juego más recomendado ubica 3 géneros con sus índices: `Action[13], Adventure[17] y Simulation[20]` con comentarios del segmento `Positive` para el `género:Action` y `Neutral` para el resto de `géneros `y así manifestado por la columna de `sentiment_analysis` mediante el código `2` y `1` respectivamente. 
+El primer juego más recomendado ubica 5 géneros con sus indices: `Casual[0], Action[1], Indie[2], Strategy[3] y Simulation[5]` con comentarios del segmento `Neutral`, y así manifestado por la columna de `sentiment_analysis` mediante el código `1`. Resaltando la palabra `great`, de la columna `review`.
+El segundo juego más recomendado ubica 5 géneros con sus índices: `Free to Play[6], Indie[7], Casual[9], Sports[12] y Simulation[16]` con comentarios del segmento `Positive`, y así manifestado por la columna de `sentiment_analysis` mediante el código `2`. Resaltando la palabras: fun, really, great, game, good, de la columna review.
+El tercer juego más recomendado ubica 4 géneros con sus índices: `Free to Play[4], Indie[8], Strategy[10] y RPG[11]` con comentarios del segmento `Neutral` para el `género:Free to Play` y `Positive` para el resto de `géneros `, y así manifestado por la columna de `sentiment_analysis` mediante el código `1` y `2` correspondientemente. Resaltando la palabra `fun, game, play`, de la columna `review`. 
+El cuarto juego más recomendado ubica 3 géneros con sus índices: `Action[13], Adventure[17] y Simulation[20]` con comentarios del segmento `Positive` para el `género:Action` y `Neutral` para el resto de `géneros `y así manifestado por la columna de `sentiment_analysis` mediante el código `2` y `1` respectivamente. Resaltando la palabras: `really, good, game`, de la columna `review`. 
   
 ## Desarrollo API
 ### *`Funciones API`*(Pag. 3)
@@ -86,7 +86,7 @@ El cuarto juego más recomendado ubica 3 géneros con sus índices: `Action[13],
 > - Con el archivo:`UsersRecommend.csv`, creamos la función:**`def UsersRecommend`**(`anio`:int): 
 > - Con el archivo:`UsersNotRecommend.csv`, creamos la función:**`def UsersNotRecommend`**(`anio`:int): 
 > - Con el archivo:`sentimientos.csv`, creamos la función:**`def sentiment_analysis`**(`anio`:int): 
-> - Con el archivo:`recomendacion_juego.csv`, creamos la función:**`def recomendacion_juego`**(`id_producto`): 
+> - Con el archivo:`recomendacion_juego.csv`, creamos la función:**`def recomendacion_juego`**(`titulo`): 
 > - Con el archivo:`recomendacion_usuario.csv`, creamos la función:**`def recomendacion_usuario`**(`user_id`): 
 
 ### *Integración Funciones API*: *`main.py`*
@@ -123,10 +123,10 @@ En la misma ruta de `terminal de anaconda`, teclea separado: **code .** `enter` 
        de usuarios que se encuentren categorizados con un análisis de sentimiento. Con Input:anio=Año 
     - `@app.get`('/**`sentiment_analysis`**/{`anio`}')
     - **`def sentiment_analysis`**(`anio`):  
-6. La sexta función debe devolver: Ingresando el 'id' de un producto, deberíamos recibir una lista con 5 juegos 
+6. La sexta función debe devolver: Ingresando el titulo de un producto, deberíamos recibir una lista con 5 juegos 
         recomendados similares al ingresado.
-    - `@app.get`('/**`recomendacion_juego`**/{`id_producto`}')
-    - **`def recomendacion_juego`**(`id_producto`):   
+    - `@app.get`('/**`recomendacion_juego`**/{`titulo`}')
+    - **`def recomendacion_juego`**(`titulo`):   
 7. La septima función debe devolver: Ingresando el id de un usuario, deberíamos recibir una lista con 5 juegos recomendados para dicho usuario.
     - `@app.get`('/**`recomendacion_usuario`**/{`user_id`}')
     - **`def recomendacion_usuario`**(`user_id`):
