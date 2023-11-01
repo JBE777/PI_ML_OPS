@@ -50,13 +50,13 @@ Haciendo las limpiezas y transformaciones correspondientes de los archivos: `df_
 > Segun el método `info()`, tenemos un total de 43863 registros y 11 columnas en nuestro dataset de trabajo, 6 variables son numéricas (`item_id`, `playtime_forever`, `sentiment_analysis`, `posted_year`, `id` y `release_year`), 
 1 variable es booleana (`recommend`) y 4 variables son objetos(`user_id`,`review`,`title` y `genero`). Sin embargo, necesitamos generar la columna `playtime_hours` a partir de la columna `playtime_forever` para resolver los primeros endpoints.
 > Para esto, necesitamos revisar que columnas de nuestro archivo de trabajo nos genera que archivo.csv o insumo para nuestro endpoint. Es decir, que fracción de el dataset de trabajo nos genera el respectivo archivo para nuestro endpoint.
->* `df[['genero','release_year','playtime_hours']]`, genera el archivo `genero.csv`. 
->* `df[['genero','posted_year','user_id','playtime_hours']]`, genera el archivo `userforgenre.csv`. 
->* `df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersRecommend.csv`. 
->* `df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersNotRecommend.csv`. 
->* `df[['release_year','review','sentiment_analysis']]`, genera el archivo `sentimientos.csv`. 
->* `df[['title','review']]`, genera el archivo `recomendacion_juego.csv`. 
->* `df[['user_id','title']]`, genera el archivo `recomendacion_usuario.csv`.
+>- `df[['genero','release_year','playtime_hours']]`, genera el archivo `genero.csv`. 
+>- `df[['genero','posted_year','user_id','playtime_hours']]`, genera el archivo `userforgenre.csv`. 
+>- `df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersRecommend.csv`. 
+>- `df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersNotRecommend.csv`. 
+>- `df[['release_year','review','sentiment_analysis']]`, genera el archivo `sentimientos.csv`. 
+>- `df[['title','review']]`, genera el archivo `recomendacion_juego.csv`. 
+>- `df[['user_id','title']]`, genera el archivo `recomendacion_usuario.csv`.
 #### *`Analizando los datos de mis variables`*
 >* Para esto, empezamos a trabajar con las variables numéricas (`item_id, id, sentiment_analysis, posted_year, release_year, playtime_hours`) aplicando los metodos necesarios para obtener los
       estadísticos `describe()` y las correlaciones `corr()` de nuestras variables sobresaliendo de los 3 parámetros de la columna de *`sentiment_analysis`*, el parámetro **`Neutral`** con **`27913`** registros
@@ -81,13 +81,13 @@ El cuarto juego más recomendado ubica 3 géneros con sus índices: `Action[13],
 ## Desarrollo API
 ### *`Funciones API`*(Pag. 3)
 > Para este desarrollo, se crea el Notebook *`Funciones API`* y se trabaja con los `archivos csv`como insumo para crear las respectivas `funciones API`. Para eso, se importan las librerias necesarias: *`pandas`*, *`from sklearn.feature_extraction.text import TfidfVectorizer`* y *`from sklearn.metrics.pairwise import linear_kernel`*. 
-> - Con el archivo:`genero.csv`, creamos la función:**`def PlayTimeGenre`**(`genero`:str):      
-> - Con el archivo:`userforgenre.csv`, creamos la función:**`def UserForGenre`**(`genero`:str):
-> - Con el archivo:`UsersRecommend.csv`, creamos la función:**`def UsersRecommend`**(`anio`:int): 
-> - Con el archivo:`UsersNotRecommend.csv`, creamos la función:**`def UsersNotRecommend`**(`anio`:int): 
-> - Con el archivo:`sentimientos.csv`, creamos la función:**`def sentiment_analysis`**(`anio`:int): 
-> - Con el archivo:`recomendacion_juego.csv`, creamos la función:**`def recomendacion_juego`**(`titulo`): 
-> - Con el archivo:`recomendacion_usuario.csv`, creamos la función:**`def recomendacion_usuario`**(`user_id`): 
+>  - Con el archivo:`genero.csv`, creamos la función:**`def PlayTimeGenre`**(`genero`:str):      
+>  - Con el archivo:`userforgenre.csv`, creamos la función:**`def UserForGenre`**(`genero`:str):
+>  - Con el archivo:`UsersRecommend.csv`, creamos la función:**`def UsersRecommend`**(`anio`:int): 
+>  - Con el archivo:`UsersNotRecommend.csv`, creamos la función:**`def UsersNotRecommend`**(`anio`:int): 
+>  - Con el archivo:`sentimientos.csv`, creamos la función:**`def sentiment_analysis`**(`anio`:int): 
+>  - Con el archivo:`recomendacion_juego.csv`, creamos la función:**`def recomendacion_juego`**(`titulo`): 
+>  - Con el archivo:`recomendacion_usuario.csv`, creamos la función:**`def recomendacion_usuario`**(`user_id`): 
 
 ### *Integración Funciones API*: *`main.py`*
 > Para integrar las funciones API, es necesario acceder a `VSCode`. En mi caso, yo usé `Anaconda-Environments-myenv-Open Terminal`.
@@ -132,12 +132,12 @@ En la misma ruta de `terminal de anaconda`, teclea separado: **code .** `enter` 
     - **`def recomendacion_usuario`**(`user_id`):
     
 ### **`Deployment`**: 
-* Para que la API pueda ser consumida localmente, y una vez hecho lo anterior, es nevesario teclear desde terminal de `VSCode` o
+ - Para que la API pueda ser consumida localmente, y una vez hecho lo anterior, es nevesario teclear desde terminal de `VSCode` o
 desde la terminal donde accediste a tu proyecto. El siguiente comando: **uvicorn main:app --reload** `enter` para obtener  en tu localhost:http://127.0.0.1:8000/docs.
-* Una vez, probada la API localmente puedes continuar en `VSCode` para agregar el archivo txt: `requirements.txt` creado vacío y agregando solamente las librerias que se crean convenientes. 
-* Enseguida subí mi proyecto a GitHub, en mi caso y desde terminal de VSCode, escribí los comandos: **git add .**`enter`, **git commit -m 'PI_ML_OPS'** `enter` y **git push** `enter`.
-* Después accedí a mi cuenta de GitHub, abriendo mis repositorios para ubicar mi proyecto: **PI_ML_OPS** para abrirlo e inspeccionar que todo estaba bien.
-* Finalmente entramos a: https://render.com, y conectamos con la cuenta GitHub para acceder a un `WebService` para cargar el proyecto, para que la `API` este disponible y consumible en la `Nube`, que si todo esta bien: 
+ - Una vez, probada la API localmente puedes continuar en `VSCode` para agregar el archivo txt: `requirements.txt` creado vacío y agregando solamente las librerias que se crean convenientes. 
+ - Enseguida subí mi proyecto a GitHub, en mi caso y desde terminal de VSCode, escribí los comandos: **git add .**`enter`, **git commit -m 'PI_ML_OPS'** `enter` y **git push** `enter`.
+ - Después accedí a mi cuenta de GitHub, abriendo mis repositorios para ubicar mi proyecto: **PI_ML_OPS** para abrirlo e inspeccionar que todo estaba bien.
+ - Finalmente entramos a: https://render.com, y conectamos con la cuenta GitHub para acceder a un `WebService` para cargar el proyecto, para que la `API` este disponible y consumible en la `Nube`, que si todo esta bien: 
  el icono de color verde `live` aparece y en todos los casos aparentemente se puede ver el link de tu API. En mi caso: https://fastapi-cb8b.onrender.com
                                          
 ## **Sistema de recomendación**
