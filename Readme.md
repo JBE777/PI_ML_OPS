@@ -17,23 +17,17 @@
 
 ## Desarrollo ETL
 ### *`Extracción, transformación y carga de datos`*(Pag. 1)
-> Para este desarrollo, se crea el Notebook *ETL* y se trabaja con los `archivos json`: ***output_steam_games.json***, ***australian_user_reviews.json*** y ***australian_users_items.json***. Para abrir los archivos, importamos las librerias necesarias: ***`pandas`***, ***`ast`*** y ***`warnings`***, esta última libreria nos proporciona el método `filterwarnings('ignore')` con el parámetro `ignore` e ignorar los `warnings`, para trabajar con los datasets `json` mencionados. 
-> Enseguida, lo que encontramos cuando abrimos cada archivo json.
-#### *`output_steam_games.json(1)`*:
-> Abrimos el archivo directamente con `pandas`y eliminamos los valores `nulos`, generando 22530 registros y 13 columnas. 
-> Limpiamos la columna `release_date` para extraer la columna `release_year` e incrementar en una columna más. 
+> Para este desarrollo, se crea el Notebook *ETL* y se trabaja con los `archivos json`: **`output_steam_games.json`**, **`australian_user_reviews.json`** y **`australian_users_items.json`**. Para abrir los archivos, importamos las librerias necesarias: ***`pandas`***, ***`ast`*** y ***`warnings`***, esta última libreria nos proporciona el método `filterwarnings('ignore')` con el parámetro `ignore` e ignorar los `warnings`, para trabajar con los datasets `json` mencionados. 
+> Enseguida, lo que encontramos cuando abrimos cada archivo json. *`output_steam_games.json(1)`*: Abrimos el archivo directamente con `pandas`y eliminamos los valores `nulos`, generando 22530 registros y 13 columnas. Limpiamos la columna `release_date` para extraer la columna `release_year` e incrementar en una columna más. 
 > Producto de las limpiezas y transformaciones, se requirio eliminar algunos registros y columnas para reducirse a 4 columnas (`genres`, `title`, `id` y `release_year`) y 22528 registros. 
-> La columna `genres` muestra sus registros en forma de `lista`, así que los apilamos en una nueva columna que le llamamos `genero`.
-> Finalmente, eliminamos la columna `genres` que resulta en un dataset de `55607 registros y 4 columnas` que es salvado como: ***`df_games.csv`***
-#### *`australian_user_reviews.json(2)`*:
+> La columna `genres` muestra sus registros en forma de `lista`, así que los apilamos en una nueva columna que le llamamos `genero`.Finalmente, eliminamos la columna `genres` que resulta en un dataset de `55607 registros y 4 columnas` que es salvado como: ***`df_games.csv`****`australian_user_reviews.json(2)`*:
 > Apoyado en la librería `ast` y partiendo de una lista vacia, abrimos el archivo mediante `open`, transformamos la lista en un DataFrame que nos arroja 3 columnas:`user_id`,`user_url`,`reviews`. Esta última columna `reviews`, esta anidada; pero, antes de desanidarla crearemos la función  `sentiment_analysis` usando la librería: `TextBlob`, la cuál deriva en 3 métricas: Negative = 0, Neutral = 1 y Positive = 2. Una vez creada la función `sentiment_analysis`, la aplicamos a la columna `reviews` apoyados en el método `apply` es construida la columna:`sentiment_analysis`. 
 > Enseguida para desanidar la columna: `reviews`, iteramos las columnas de el archivo(2), usando el método:`iterrows`y
 > mediante un diccionario alojamos todas las columnas en el `archivo`(2), incluyendo las columnas desanidadas en una lista que transformamos en DataFrame y eliminamos la columna `reviews`. 
 > Ahora, convertimos la columna *`posted`* a formato fecha *`AAAA-MM-DD`*, 
 > usando las librerías: `dateutil y parser` y eliminamos la palabra *`Posted`* de cada registro de la columna *`posted`* y aplicamos la función `parse_date` a la columna `posted` y creamos la columna `posted_date` y eliminamos la columna `posted`. Entonces, desde la columna `posted_date` extraemos la columna `posted_year` generando `8 columnas y 59305 registros`. 
 > Las columnas generadas son: `user_id`, `user_url`, `sentiment_analysis`, `item_id`, `recommend`, `review`, `posted_date`, `posted_year`. Eliminamos los valores nulos de la columna `posted_year` y las columnas `user_url` y `posted_date` para terminar en `59280 registros y 6 columnas`.
-> Resultante de este archivo es salvado como dataset: ***`df_reviews.csv`***.
-#### *`australian_users_items.json(3)`*:
+> Resultante de este archivo es salvado como dataset: ***`df_reviews.csv`***. *`australian_users_items.json(3)`*:
 > Abrimos el archivo mediante `open` y creando un bucle `for` vamos agregando linea por linea en una lista. Transformamos la lista en DataFrame, que nos arroja 5 columnas: `user_id`, `items_count`, `steam_id`, `user_url` e `items`. 
 > Esta última columna `items`, esta anidada. La cuál, desanidamos con la iteracion de las columnas de el archivo(3), usando el método:`iterrows`y
 > mediante un diccionario alojamos todas las columnas en el `archivo`(3), incluyendo las columnas desanidadas en una lista que transformamos en DataFrame que genera 7 columnas y 5153209 registros. 
@@ -41,42 +35,33 @@
 > Eliminamos las columnas `items_count`, `steam_id`, `user_url` y `item_name` para reducirse a 3 columnas y 5153209 registros.
 > Resultante de este archivo es salvado como dataset:***`df_items.csv`*** .
 ### *`Resumen_ETL`*:
-Haciendo las limpiezas y transformaciones correspondientes de los archivos: `df_games.csv`, `df_reviews.csv` y `df_items.csv`, generamos el archivo de trabajo: `df_trabajo.csv` con 11 columnas y 43863 registros. Este archivo es el que utilizamos para trabajar en este proyecto.
+> Haciendo las limpiezas y transformaciones correspondientes de los archivos: `df_games.csv`, `df_reviews.csv` y `df_items.csv`, generamos el archivo de trabajo: `df_trabajo.csv` con 11 columnas y 43863 registros. Este archivo es el que utilizamos para trabajar en este proyecto.
 
 ## Desarrollo EDA
 ### *`Exploración y análisis de datos`*(Pag. 2)
-> Para este desarrollo, se crea el Notebook *EDA* y se trabaja con el `archivo.csv`: **`df_trabajo.csv`**. Para abrir los archivos, importamos la libreria necesarias: ***pandas, seaborn, matplotlib.pyplot, wordcloud, STOPWORDS y warnings***, esta última libreria nos proporciona el método `filterwarnings('ignore')` con el parámetro `ignore` e ignorar los `warnings`, que nos sirve para construir los insumos de cada función y salvando, el respectivo archivo como `csv`. 
-#### *`Analizando los datos para crear el insumo de mis endpoints`*
+> Este desarrollo, se crea el Notebook *EDA* y se trabaja con el `archivo.csv`: **`df_trabajo.csv`**. Para abrir los archivos, 
+  importamos la libreria necesarias: **`pandas, seaborn, matplotlib.pyplot, wordcloud, STOPWORDS y warnings`**, esta última libreria nos proporciona el método `filterwarnings('ignore')` con el parámetro `ignore` e ignorar los `warnings`, que nos sirve para construir los insumos de cada función y salvando, el respectivo archivo como `csv`. **`Creando el insumo de mis endpoints`**:
 > Segun el método `info()`, tenemos un total de 43863 registros y 11 columnas en nuestro dataset de trabajo, 6 variables son numéricas (`item_id`, `playtime_forever`, `sentiment_analysis`, `posted_year`, `id` y `release_year`), 
 1 variable es booleana (`recommend`) y 4 variables son objetos(`user_id`,`review`,`title` y `genero`). Sin embargo, necesitamos generar la columna `playtime_hours` a partir de la columna `playtime_forever` para resolver los primeros endpoints.
-> Para esto, necesitamos revisar que columnas de nuestro archivo de trabajo nos genera que archivo.csv o insumo para nuestro endpoint. Es decir, que fracción de el dataset de trabajo nos genera el respectivo archivo para nuestro endpoint.
->- `df[['genero','release_year','playtime_hours']]`, genera el archivo `genero.csv`. 
->- `df[['genero','posted_year','user_id','playtime_hours']]`, genera el archivo `userforgenre.csv`. 
->- `df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersRecommend.csv`. 
->- `df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersNotRecommend.csv`. 
->- `df[['release_year','review','sentiment_analysis']]`, genera el archivo `sentimientos.csv`. 
->- `df[['title','review']]`, genera el archivo `recomendacion_juego.csv`. 
->- `df[['user_id','title']]`, genera el archivo `recomendacion_usuario.csv`.
-#### *`Analizando los datos de mis variables`*
->* Para esto, empezamos a trabajar con las variables numéricas (`item_id, id, sentiment_analysis, posted_year, release_year, playtime_hours`) aplicando los metodos necesarios para obtener los
-      estadísticos `describe()` y las correlaciones `corr()` de nuestras variables sobresaliendo de los 3 parámetros de la columna de *`sentiment_analysis`*, el parámetro **`Neutral`** con **`27913`** registros
-      de los 43863 registros totales. El año de los `reviews`, la columna *`posted_year`* sobresale el año **`2014`** con **`15680`** registros, y seguido muy cerca por el año *`2015`* con 14311 registros.
-      La columna *`release_year`* muestra **`15684`** registros para el año **`2017`**, y en segundo lugar el año 2016 con 10996 registros. La correlación de Pearson más alta es `0.580668` y esta entre las columnas **`release_year`** y **`id`**. 
->* Enseguida, usamos la variable `booleana` representada por la columna *`recommend`*
-      para matizar las variables más correlacionadas mediante *`True`* y *`False`* sobresaliendo **`True`** con **`38926`** registros y `False` con 4937 registros siendo considerados
-      respectivamente los juegos *`Recomendados`* y *`No Recomendados`*. 
-> En cantidad de títulos más recomendados de videojuegos recae en **`Lost Summoner Kitty y Real Pool 3D - Poolians`** con **`5`** registros en cantidad.
-> El segundo lugar con **`4`** registros esta representado por **`Ironbound`** y finalmente el tercer lugar con **`3`** registros lo representa **`Battle Royale Trainer`**.
-> Para continuar con los titulos recomendados, graficamos una nube de palabras y encontramos que las palabras que más se repiten son: **`Ultimate, Puzzles, Puzzle, Pack, Collector, Original`**. 
->* Analizando los géneros de los videojuegos, vemos la primera posición la ocupa `Indie` con `10109` registros y `Action` le sigue con `7378` registros.
-      Las palabras o géneros que mas se repiten en su nube de palabras son: `Indie` y `Action`.
-      Llamando la atención `Strategy`,que aparece con letras grandes, que aunque el quinto lugar en cantidad de registros e
-      incluido en la lista de generos del juego mas recomendado. Y en la nube de palabras de la columna `review`, resaltando las palabras `game, play, fun, one, will, good, time, make, great`.
+*`1)`*`df[['genero','release_year','playtime_hours']]`, genera el archivo `genero.csv`. *`2)`*`df[['genero','posted_year','user_id','playtime_hours']]`, genera el archivo `userforgenre.csv`. 
+*`3)`*`df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersRecommend.csv`. 
+*`4)`*`df[['recommend','posted_year','sentiment_analysis','title']]`, genera el archivo `UsersNotRecommend.csv`. 
+*`5)`*`df[['release_year','review','sentiment_analysis']]`, genera el archivo `sentimientos.csv`.*`6)`*`df[['title','review']]`, genera el archivo `recomendacion_juego.csv`. 
+*`7)`*`df[['user_id','title']]`, genera el archivo `recomendacion_usuario.csv`. **`En el análisis de los datos:`** Empezamos a trabajar con las variables numéricas (`item_id, id, sentiment_analysis, posted_year, release_year, playtime_hours`) aplicando los metodos necesarios para obtener los
+estadísticos `describe()` y las correlaciones `corr()` de nuestras variables sobresaliendo de los `3` parámetros de la columna de *`sentiment_analysis`*, el parámetro **`Neutral`** con **`27913`** registros
+de los `43863` registros totales. El año de los `reviews`, la columna *`posted_year`* sobresale el año **`2014`** con **`15680`** registros, y seguido muy cerca por el año *`2015`* con `14311` registros.
+La columna *`release_year`* muestra **`15684`** registros para el año **`2017`**, y en segundo lugar el año `2016` con `10996` registros. La correlación de Pearson más alta es `0.580668` y esta entre las columnas **`release_year`** y **`id`**. Enseguida, usamos la variable `booleana` representada por la columna *`recommend`*
+para matizar las variables más correlacionadas mediante *`True`* y *`False`* sobresaliendo **`True`** con **`38926`** registros y `False` con `4937` registros siendo considerados
+respectivamente los juegos *`Recomendados`* y *`No Recomendados`*. En cantidad de títulos más recomendados de videojuegos recae en **`Lost Summoner Kitty, Real Pool 3D - Poolians y Caviar - Endless Stress Reliever`** con **`5`** registros en cantidad.
+El segundo lugar con **`4`** registros esta representado por **`Ironbound`** y finalmente el tercer lugar con **`3`** registros lo representa **`Battle Royale Trainer`**.
+Para continuar con los titulos recomendados, graficamos una nube de palabras y encontramos que las palabras que más se repiten son: **`Ultimate, Puzzles, Puzzle, Pack, Collector, Original`**. 
+Analizando los géneros de los videojuegos, vemos la primera posición la ocupa `Indie` con `10109` registros y `Action` le sigue con `7378` registros.
+Las palabras o géneros que mas se repiten en su nube de palabras son: `Indie` y `Action`. Llamando la atención `Strategy`, que aparece con letras grandes. Y en la nube de palabras de la columna `review`, resaltando las palabras `game, play, fun, one, will, good, time, make.`
 ### *`Resumen_EDA`*:
-El primer juego más recomendado ubica 5 géneros con sus indices: `Casual[0], Action[1], Indie[2], Strategy[3] y Simulation[5]` con comentarios del segmento `Neutral`, y así manifestado por la columna de `sentiment_analysis` mediante el código `1`. Resaltando la palabra `great`, de la columna `review`.
-El segundo juego más recomendado ubica 5 géneros con sus índices: `Free to Play[6], Indie[7], Casual[9], Sports[12] y Simulation[16]` con comentarios del segmento `Positive`, y así manifestado por la columna de `sentiment_analysis` mediante el código `2`. Resaltando la palabras: fun, really, great, game, good, de la columna review.
-El tercer juego más recomendado ubica 4 géneros con sus índices: `Free to Play[4], Indie[8], Strategy[10] y RPG[11]` con comentarios del segmento `Neutral` para el `género:Free to Play` y `Positive` para el resto de `géneros `, y así manifestado por la columna de `sentiment_analysis` mediante el código `1` y `2` correspondientemente. Resaltando la palabra `fun, game, play`, de la columna `review`. 
-El cuarto juego más recomendado ubica 3 géneros con sus índices: `Action[13], Adventure[17] y Simulation[20]` con comentarios del segmento `Positive` para el `género:Action` y `Neutral` para el resto de `géneros `y así manifestado por la columna de `sentiment_analysis` mediante el código `2` y `1` respectivamente. Resaltando la palabras: `really, good, game`, de la columna `review`. 
+>En esencia los `títulos mas recomendados` con `género` y `tipo de comentario son:`1) **`Lost Summoner Kitty`**: `Casual[0], Action[1], Indie[2], Strategy[3] y Simulation[5]` con comentario `Neutral`. 
+2)**`Real Pool 3D - Poolians`**: `Free to Play[6], Indie[7], Casual[9], Sports[12] y Simulation[16]` con comentario `Positive`. 
+3)**`Caviar - Endless Stress Reliever`**: `Adventure[24], Adventure[26], Action[18791]` con comentario `Positive`. 4)**`Ironbound`**: `Free to Play[4], Indie[8], Strategy[10] y RPG[11]` con comentarios `Neutral` para el `género:Free to Play` y `Positive` para el resto de `géneros `.  
+5)**`Battle Royale Trainer`**: `Action[13], Adventure[17] y Simulation[20]` con comentarios `Positive` para el `género:Action` y `Neutral` para el resto de `géneros `. 
   
 ## Desarrollo API
 ### *`Funciones API`*(Pag. 3)
