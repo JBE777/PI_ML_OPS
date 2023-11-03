@@ -126,7 +126,7 @@ desde la terminal donde accediste a tu proyecto. El siguiente comando: **uvicorn
  el icono de color verde `live` aparece y en todos los casos aparentemente se puede ver el link de tu API. En mi caso: https://fastapi-cb8b.onrender.com
                                          
 ## **Sistema de recomendación**
-Una vez creados los insumos de las funciones de recomendación, las cuáles son representadas por: def <b>recomendacion_juego(<em>`id_producto`</em>)</b> y def <b>recomendacion_usuario(<em>`user_id`</em>)</b>. Creamos las respectivas funciones de recomendación basadas en los siguientes datasets: <i>recomendacion_juego.csv</i> y <i>recomendacion_usuario.csv</i> para integrarlas en la lista de funciones creadas en el
+Una vez creados los insumos de las funciones de recomendación, las cuáles son representadas por: def <b>recomendacion_juego(<em>`titulo`</em>)</b> y def <b>recomendacion_usuario(<em>`user_id`</em>)</b>. Creamos las respectivas funciones de recomendación basadas en los siguientes datasets: <i>recomendacion_juego.csv</i> y <i>recomendacion_usuario.csv</i> para integrarlas en la lista de funciones creadas en el
 notebook: <em>Funciones_API</em>
 
 <h3>Acceso Repositorio GitHub</h3>
