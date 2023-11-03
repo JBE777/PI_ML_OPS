@@ -9,7 +9,8 @@ app = FastAPI()
 def PlayTimeGenre(genero:str):
     '''Debe devolver año con más horas jugadas para dicho género.Ejemplo de retorno: 
     {"Año de lanzamiento con más horas jugadas para el Género X" : 2013}
-    con Input:genero'''
+    con Input:genero, se puede usar como input = 
+    [Casual,Action,Indie,Strategy,Free to Play,Simulation,RPG,Sports]'''
     df = pd.read_csv('./genero.csv')
     d = df.loc[df.genero==genero]
     e = d.playtime_hours.count()
@@ -22,7 +23,8 @@ def UserForGenre(genero:str):
     lista de la acumulación de las horas jugadas por año. Ejemplo de retorno: 
     {"Usuario con más horas jugadas para el Género X" : us213ndjss09sdf, "Horas jugadas":
     [{Año: 2013, Horas: 203}, {Año: 2012, Horas: 100}, {Año: 2011, Horas: 23}]}
-    con Input:genero'''
+    con Input:genero, se puede usar como input =
+    [Casual,Action,Indie,Strategy,Free to Play,Simulation,RPG,Sports]'''
     df = pd.read_csv('./userforgenre.csv')
     gen = df.loc[df.genero==genero]
     u = gen.user_id.to_list()[0]
@@ -35,7 +37,7 @@ def UserForGenre(genero:str):
 def UsersRecommend(anio:int): 
     '''Devuelve el top 3 de juegos MÁS recomendados por usuarios para el año dado. (reviews.recommend = 
     True y comentarios positivos/neutrales). Ejemplo de retorno: [{"Puesto 1" : X}, {"Puesto 2" : Y},
-    {"Puesto 3" : Z}] con Input:anio=Año'''
+    {"Puesto 3" : Z}] con Input:anio=Año, se puede usar como input = [2010,2012,2014,2015,2023]'''
     df = pd.read_csv('./UsersRecommend.csv')
     a = df.loc[df.posted_year==anio]
     b = a.sentiment_analysis.count()
@@ -46,7 +48,7 @@ def UsersRecommend(anio:int):
 def UsersNotRecommend(anio:int): 
     '''Devuelve el top 3 de juegos MENOS recomendados por usuarios para el año dado. (reviews.recommend = 
     False y comentarios negativos). Ejemplo de retorno: [{"Puesto 1" : X}, {"Puesto 2" : Y},{"Puesto 3" : Z}]
-    con Input:anio=Año'''
+    con Input:anio=Año, se puede usar como input = [2011,2012,2014,2015,2023]'''
     df = pd.read_csv('./UsersNotRecommend.csv')
     d = df.loc[df.posted_year==anio]
     e = d.sentiment_analysis.count()
@@ -56,7 +58,8 @@ def UsersNotRecommend(anio:int):
 @app.get("/sentiment_analysis/{anio}")    
 def sentiment_analysis(anio:int): 
     '''Según el año de lanzamiento, se devuelve una lista con la cantidad de registros de reseñas
-       de usuarios que se encuentren categorizados con un análisis de sentimiento. Con Input:anio=Año'''
+    de usuarios que se encuentren categorizados con un análisis de sentimiento. Con Input:anio=Año,
+    se puede usar como input = [2010,2011,2012,2013,2014,2015,2016,2017,2018]'''
     df = pd.read_csv('./sentimientos.csv')
     d = df[df['release_year']==anio]
     e = d['review'].count()
@@ -74,7 +77,9 @@ def sentiment_analysis(anio:int):
 
 @app.get("/recomendacion_juego/{titulo}")
 def recomendacion_juego(titulo):
-    '''Ingresando el titulo de un producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.'''
+    '''Ingresando el titulo de un producto, deberíamos recibir una lista con 5 juegos recomendados similares al ingresado.
+    Inputs posibles = [Lost Summoner Kitty,Ironbound,Real Pool 3D - Poolians,Battle Royale Trainer,SNOW - All Access Pro Pass,
+                     Caviar - Endless Stress Reliever]'''
     f = pd.read_csv('./recomendacion_juego.csv')
     tfidf = TfidfVectorizer(stop_words = 'english')
     f['review'] = f['review'].fillna('')
@@ -91,7 +96,8 @@ def recomendacion_juego(titulo):
 
 @app.get("/recomendacion_usuario/{user_id}")
 def recomendacion_usuario(user_id):
-    '''Ingresando el id de un usuario, deberíamos recibir una lista con 5 juegos recomendados para dicho usuario.'''
+    '''Ingresando el id de un usuario, deberíamos recibir una lista con 5 juegos recomendados para dicho usuario.
+        Inputs posibles = [76561197970982479,js41637,76561198087216220, L3afBlower]'''
     g = pd.read_csv('./recomendacion_usuario.csv')
     tfidf = TfidfVectorizer(stop_words = 'english')
     g['user_id'] = g['user_id'].fillna('')
