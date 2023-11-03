@@ -138,5 +138,8 @@ https://github.com/JBE777/PI_ML_OPS
 https://fastapi-cb8b.onrender.com/docs#/
                                                                                                                      
 <h3>Acceso Video</h3>
+
+https://drive.google.com/file/d/1_Jsirq3fhyVjxTE_zcLJLqPpDqFMhsp1/view
+    
 <p><img src="formas/Git.png", width="150"></p>
 <h6 align=right>México - 2023</h6>
